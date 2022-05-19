@@ -10,6 +10,37 @@
 
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
+void setup() {
+  pinMode(buttonPin, INPUT);
+
+  lcd.init();
+  lcd.clear();
+  lcd.backlight();
+
+  lcd.createChar(1, Heart);
+  lcd.createChar(2, Degree);
+  lcd.clear();
+
+  intro();
+
+  while (!OBD2.begin()) {
+    enableDisplay(false);
+    delay(750);
+  }
+
+  enableDisplay(true);
+}
+
+void loop() {
+
+  delay(100);
+
+  buttonListener();
+
+  if (displayIsOn)
+    printDataToScreen();
+}
+
 void intro() {
   lcd.clear();
 
@@ -33,7 +64,7 @@ void intro() {
   delay(1000);
 }
 
-void enableDisplay(boolean turnOn) {
+void enableDisplay(bool turnOn) {
   if (turnOn) {
     lcd.display();
     lcd.backlight();
@@ -45,30 +76,9 @@ void enableDisplay(boolean turnOn) {
   }
 }
 
-void setup() {
-  pinMode(buttonPin, INPUT);
-
-  lcd.init();
-  lcd.clear();
-  lcd.backlight();
-
-  lcd.createChar(1, Heart);
-  lcd.createChar(2, Degree);
-  lcd.clear();
-
-  intro();
-
-  while (!OBD2.begin()) {
-    enableDisplay(false);
-    delay(750);
-  }
-
-  enableDisplay(true);
-}
-
 void shortPressed() {
   preset++;
-  preset = preset % numberOfPresets;
+  preset %= numberOfPresets;
 
   lcd.clear();
 
@@ -95,23 +105,23 @@ void buttonListener() {
   currentState = digitalRead(buttonPin);
 
   // button is pressed
-  if (lastState == HIGH && currentState == LOW) {
+  if (lastState && !currentState) {
     pressedTime = millis();
     isPressing = true;
     isLongDetected = false;
 
     // button is released
-  } else if (lastState == LOW && currentState == HIGH) {
+  } else if (!lastState && currentState) {
     isPressing = false;
     releasedTime = millis();
 
     long pressDuration = releasedTime - pressedTime;
 
-    if (pressDuration < SHORT_PRESS_TIME)
+    if (pressDuration < LONG_PRESS_TIME)
       shortPressed();
   }
 
-  if (isPressing == true && isLongDetected == false) {
+  if (isPressing && !isLongDetected) {
     long pressDuration = millis() - pressedTime;
 
     if (pressDuration >= LONG_PRESS_TIME) {
@@ -153,16 +163,6 @@ void printDataToScreen() {
   }
 }
 
-void loop() {
-
-  delay(100);
-
-  buttonListener();
-
-  if (displayIsOn)
-    printDataToScreen();
-}
-
 void printRPM(int column, int row) {
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
@@ -176,7 +176,7 @@ void printRPM(int column, int row) {
   }
 }
 
-void printValue(String title, int pid, boolean printUnits, boolean isFloat,
+void printValue(String title, int pid, bool printUnits, bool isFloat,
                 int column, int row) {
 
   if (isFloat) {
