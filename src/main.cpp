@@ -37,6 +37,8 @@ void loop() {
 
   buttonListener();
 
+  // check OBD2 active
+
   if (displayIsOn)
     printDataToScreen();
 }
@@ -56,7 +58,6 @@ void intro() {
 
   lcd.setCursor(2, 3);
   lcd.print("Enjoy your ride!");
-
   delay(2000);
 
   lcd.clear();
@@ -97,8 +98,15 @@ void longPressed() {
   // Toggle Display
   enableDisplay(!displayIsOn);
 
-  if (displayIsOn)
+  if (displayIsOn) {
+    while (!OBD2.begin()) {
+      enableDisplay(false);
+      delay(750);
+    }
     intro();
+  } else {
+    OBD2.end();
+  }
 }
 
 void buttonListener() {
