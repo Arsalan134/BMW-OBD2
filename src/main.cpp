@@ -37,8 +37,6 @@ void loop() {
 
   buttonListener();
 
-  // check OBD2 active
-
   if (displayIsOn)
     printDataToScreen();
 }
@@ -147,51 +145,46 @@ void printDataToScreen() {
   lcd.home();
 
   switch (preset) {
+
   default:
-    printRPM(0, 0);
-    printValue("Pressure:  ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, true, false, 0,
+    printValue("Injection: ", FUEL_RAIL_GAUGE_PRESSURE, true, false, 0, 0);
+    printValue("Intake:    ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, true, false, 0,
                1);
-    printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 2);
-    printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 3);
+    printTemp("Intake Temp: ", AIR_INTAKE_TEMPERATURE, 0, 2);
+    printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
     break;
 
   case 1:
-    printTemp("Intake Temp : ", AIR_INTAKE_TEMPERATURE, 0, 0);
-    printTemp("Ambient Temp: ", AMBIENT_AIR_TEMPERATURE, 0, 1);
+    printTemp("Outside Temp: ", AMBIENT_AIR_TEMPERATURE, 0, 0);
+    printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 1);
     printTemp("Catalyst 1  : ", CATALYST_TEMPERATURE_BANK_1_SENSOR_1, 0, 2);
     printTemp("Catalyst 2  : ", CATALYST_TEMPERATURE_BANK_2_SENSOR_1, 0, 3);
     break;
 
   case 2:
-    printValue("Speed: ", VEHICLE_SPEED, true, false, 0, 0);
-    printValue("Load:  ", CALCULATED_ENGINE_LOAD, true, true, 0, 1);
-    printValue("Fuel:  ", FUEL_TANK_LEVEL_INPUT, true, true, 0, 2);
-    printValue("Start: ", RUN_TIME_SINCE_ENGINE_START, true, true, 0, 3);
+    printValue("RPM:    ", ENGINE_RPM, true, false, 0, 0);
+    printValue("Speed:  ", VEHICLE_SPEED, true, false, 0, 1);
+    printValue("Load:   ", CALCULATED_ENGINE_LOAD, true, true, 0, 2);
+    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, true, true, 0, 3);
+    // printValue("Start: ", RUN_TIME_SINCE_ENGINE_START, true, true, 0, 3);
     break;
-  }
-}
-
-void printRPM(int column, int row) {
-  int rpm = OBD2.pidRead(ENGINE_RPM);
-
-  if (!isnan(rpm)) {
-    lcd.setCursor(11, row);
-    lcd.print(" ");
-
-    lcd.setCursor(column, row);
-    lcd.print("RPM:    ");
-    lcd.print(rpm);
   }
 }
 
 void printValue(String title, int pid, bool printUnits, bool isFloat,
                 int column, int row) {
 
+  int lengthOfTitle = title.length();
+
   if (isFloat) {
     float value = OBD2.pidRead(pid);
     if (!isnan(value)) {
       lcd.setCursor(column, row);
       lcd.print(title);
+
+      lcd.print("     ");
+      lcd.setCursor(column + lengthOfTitle, row);
+
       lcd.print(value);
 
       if (printUnits) {
@@ -204,6 +197,10 @@ void printValue(String title, int pid, bool printUnits, bool isFloat,
     if (!isnan(value)) {
       lcd.setCursor(column, row);
       lcd.print(title);
+
+      lcd.print("     ");
+      lcd.setCursor(column + lengthOfTitle, row);
+
       lcd.print(value);
 
       if (printUnits) {
