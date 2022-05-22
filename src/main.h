@@ -1,7 +1,18 @@
 #include <Arduino.h>
 
+#include <CAN.h>
+#include <FastLED.h>
+#include <LiquidCrystal_I2C.h>
+#include <OBD2.h>
+#include <Wire.h>
+
 #define buttonPin 7
 #define LONG_PRESS_TIME 1000
+
+#define NUM_LEDS 20
+
+#define DATA_PIN 3
+#define CLOCK_PIN 13
 
 bool lastState = LOW;
 bool currentState;
@@ -20,6 +31,7 @@ byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
                   0b00000, 0b00000, 0b00000, 0b00000};
 
 void intro();
+void ledsLoop();
 void enableDisplay(bool turnOn);
 void shortPressed();
 void longPressed();

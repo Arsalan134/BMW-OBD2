@@ -1,14 +1,8 @@
-#include <Arduino.h>
-
 #include "main.h"
 
-#include <CAN.h>
-#include <OBD2.h>
-
-#include <LiquidCrystal_I2C.h>
-#include <Wire.h>
-
 LiquidCrystal_I2C lcd(0x27, 20, 4);
+
+CRGB leds[NUM_LEDS];
 
 void setup() {
   pinMode(buttonPin, INPUT);
@@ -29,16 +23,20 @@ void setup() {
   }
 
   enableDisplay(true);
+
+  FastLED.addLeds<WS2813, DATA_PIN, RGB>(leds, NUM_LEDS, 0);
+  FastLED.setBrightness(50);
 }
 
 void loop() {
-
   delay(100);
 
   buttonListener();
 
   if (displayIsOn)
     printDataToScreen();
+
+  ledsLoop();
 }
 
 void intro() {
@@ -73,6 +71,18 @@ void enableDisplay(bool turnOn) {
     lcd.noBacklight();
     displayIsOn = false;
   }
+}
+
+void ledsLoop() {
+  FastLED.clear();
+
+  int rpm = OBD2.pidRead(ENGINE_RPM);
+
+  int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
+
+  fill_gradient_RGB(leds, level, CRGB::Green, CRGB::Yellow, CRGB::Red);
+
+  FastLED.show();
 }
 
 void shortPressed() {
@@ -157,8 +167,8 @@ void printDataToScreen() {
   case 1:
     printTemp("Outside Temp: ", AMBIENT_AIR_TEMPERATURE, 0, 0);
     printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 1);
-    printTemp("Catalyst 1  : ", CATALYST_TEMPERATURE_BANK_1_SENSOR_1, 0, 2);
-    printTemp("Catalyst 2  : ", CATALYST_TEMPERATURE_BANK_2_SENSOR_1, 0, 3);
+    printTemp("Catalyst 1:   ", CATALYST_TEMPERATURE_BANK_1_SENSOR_1, 0, 2);
+    printTemp("Catalyst 2:   ", CATALYST_TEMPERATURE_BANK_2_SENSOR_1, 0, 3);
     break;
 
   case 2:
@@ -166,7 +176,6 @@ void printDataToScreen() {
     printValue("Speed:  ", VEHICLE_SPEED, true, false, 0, 1);
     printValue("Load:   ", CALCULATED_ENGINE_LOAD, true, true, 0, 2);
     printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, true, true, 0, 3);
-    // printValue("Start: ", RUN_TIME_SINCE_ENGINE_START, true, true, 0, 3);
     break;
   }
 }
