@@ -84,6 +84,10 @@ void ledsLoop() {
 
   int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
 
+  // RPM dependent brightness
+  // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
+  // FastLED.setBrightness(newBrightness);
+
   fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Red);
   fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
 
@@ -185,6 +189,15 @@ void printDataToScreen() {
   }
 }
 
+/**
+ * @brief  Prints values to a display
+ * @param  title: Text to display on screen
+ * @param  pid: PID from OBD2 protocol
+ * @param  printUnits: print units as well
+ * @param  isFloat: Integer or floating format
+ * @param  column: column index
+ * @param  row: row index
+ */
 void printValue(String title, int pid, bool printUnits, bool isFloat,
                 int column, int row) {
 
