@@ -85,9 +85,11 @@ void ledsLoop() {
   FastLED.clear();
   // FastLED.show();
   // leds->fadeToBlackBy(50);
+  Serial.println("Led Loop");
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
+  Serial.print("RPM ");
   Serial.println(rpm);
 
   // if (rpm < 1000)
@@ -95,11 +97,13 @@ void ledsLoop() {
 
   int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
 
+  Serial.print("Level ");
+  Serial.println(level);
   // RPM dependent brightness
   // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
   // FastLED.setBrightness(newBrightness);
 
-  fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Red);
+  fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Magenta);
   // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
 
   FastLED.show();
