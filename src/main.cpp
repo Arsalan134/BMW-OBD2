@@ -14,8 +14,6 @@ void setup() {
   lcd.createChar(2, Degree);
   lcd.clear();
 
-  Serial.begin(9600);
-
   intro();
 
   while (!OBD2.begin()) {
@@ -34,11 +32,11 @@ void loop() {
 
   buttonListener();
 
-  // if (displayIsOn)
-  // printDataToScreen();
+  if (displayIsOn)
+    printDataToScreen();
 
-  // if (ledIsOn)
-  ledsLoop();
+  if (ledIsOn)
+    ledsLoop();
 }
 
 void intro() {
@@ -79,22 +77,16 @@ void enableDisplayAndLED(bool turnOn) {
 
 void ledsLoop() {
 
-  Serial.println("CLEAR");
   FastLED.clear();
   // FastLED.show();
   // leds->fadeToBlackBy(50);
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
-  Serial.println(rpm);
-
   if (rpm < 1000)
     return;
 
   int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
-
-  Serial.print("level :");
-  Serial.println(level);
 
   // RPM dependent brightness
   // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
@@ -104,8 +96,6 @@ void ledsLoop() {
   fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
 
   FastLED.show();
-  Serial.println("Show");
-  Serial.println();
 }
 
 void shortPressed() {
