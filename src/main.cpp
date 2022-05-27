@@ -101,7 +101,7 @@ void ledsLoop() {
       }
 
       if (!colorsAreTurnedOn)
-        FastLED.clear();
+        return;
     }
 
     FastLED.show();
