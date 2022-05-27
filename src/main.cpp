@@ -21,7 +21,7 @@ void setup() {
     delay(750);
   }
 
-  enableDisplayAndLED(true);
+  // enableDisplayAndLED(true);
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(50);
@@ -32,11 +32,11 @@ void loop() {
 
   buttonListener();
 
-  if (displayIsOn)
-    printDataToScreen();
+  // if (displayIsOn)
+  // printDataToScreen();
 
-  if (ledIsOn)
-    ledsLoop();
+  // if (ledIsOn)
+  ledsLoop();
 }
 
 void intro() {
