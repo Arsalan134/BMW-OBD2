@@ -10,8 +10,8 @@
 #define buttonPin 7
 
 #define LONG_PRESS_TIME 1000
-#define BLINK_DURATION 50
-#define BLINK_RPM 2500
+#define BLINK_DURATION 100
+#define BLINK_RPM 1500
 
 #define NUM_LEDS 15
 
