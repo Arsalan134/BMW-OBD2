@@ -25,6 +25,8 @@ void setup() {
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(50);
+
+  Serial.println("Setup Complete");
 }
 
 void loop() {
