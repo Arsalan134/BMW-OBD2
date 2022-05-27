@@ -27,7 +27,7 @@ void setup() {
 }
 
 void loop() {
-  delay(50);
+  delay(100);
 
   buttonListener();
 
@@ -91,21 +91,18 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    Serial.println("BEFORE");
+    Serial.println(rpm);
+    Serial.println(BLINK_RPM);
+
     if (rpm >= BLINK_RPM) {
-      Serial.println("1");
       if (ledBlinkPeriod > BLINK_DURATION) {
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
-        Serial.println("2");
       }
 
-      Serial.println("3");
       if (!colorsAreTurnedOn)
         FastLED.clear();
     }
-
-    Serial.println("4");
 
     FastLED.show();
   }
