@@ -6,7 +6,7 @@ CRGB leds[NUM_LEDS];
 void setup() {
   pinMode(buttonPin, INPUT);
 
-  Serial.begin(9600);
+  // Serial.begin(9600);
 
   lcd.init();
   lcd.clear();
@@ -20,15 +20,15 @@ void setup() {
 
   while (!OBD2.begin()) {
     delay(750);
-    Serial.println("Waiting OBD");
+    // Serial.println("Waiting OBD");
   }
 
-  Serial.println("OBD is OK");
+  // Serial.println("OBD is OK");
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(40);
+  FastLED.setBrightness(255);
 
-  Serial.println("Setup Complete");
+  // Serial.println("Setup Complete");
 }
 
 void loop() {
@@ -87,7 +87,7 @@ void ledsLoop() {
 
   if (!isnan(rpm)) {
 
-    int level = map(rpm, 800, 5000, 0, NUM_LEDS);
+    int level = map(rpm, 800, 4000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
