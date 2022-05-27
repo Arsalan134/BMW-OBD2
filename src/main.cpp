@@ -82,40 +82,27 @@ void enableDisplayAndLED(bool turnOn) {
 void ledsLoop() {
 
   FastLED.clear();
-  // FastLED.show();
-  // leds->fadeToBlackBy(50);
-  Serial.println("Led Loop");
-
-  // delay(100);
 
   float rpm = OBD2.pidRead(ENGINE_RPM);
-  // delay(100);
 
   if (!isnan(rpm)) {
-    // Serial.print("RPM: ");
-    // Serial.println(rpm);
-
     // if (rpm < 1000)
     // return;
 
-    int level = map(rpm, 800, 7000, 0, NUM_LEDS);
+    int level = map(rpm, 700, 6000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    // Serial.print("Level ");
-    // Serial.println(level);
-    // RPM dependent brightness
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
     // FastLED.setBrightness(newBrightness);
 
-    // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow,
-    // CRGB::Magenta);
-    // fill_gradient_RGB(leds, 0, CRGB::Green, NUM_LEDS);
-    for (int i = 0; i < level; i++) {
-      leds[i] = CRGB::Magenta;
-    }
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
+                      CRGB{255, 0, 0});
 
-    // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
-    // CRGB::Black);
+    // for (int i = 0; i < level; i++) {
+    //   leds[i] = CRGB::Magenta;
+    // }
+
+    fill_gradient_RGB(leds, level + 1, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
 
     FastLED.show();
     Serial.print("SHow ");
