@@ -82,6 +82,7 @@ void enableDisplayAndLED(bool turnOn) {
 void ledsLoop() {
 
   FastLED.clear();
+  FastLED.show();
 
   float rpm = OBD2.pidRead(ENGINE_RPM);
 
