@@ -6,13 +6,12 @@
 #include <OBD2.h>
 #include <Wire.h>
 
+#define LedPin 3
 #define buttonPin 7
+
 #define LONG_PRESS_TIME 1000
 
 #define NUM_LEDS 20
-
-#define DATA_PIN 3
-#define CLOCK_PIN 13
 
 bool lastState = LOW;
 bool currentState;
@@ -24,17 +23,20 @@ bool isLongDetected = false;
 int preset = 2;
 int numberOfPresets = 3;
 bool displayIsOn = true;
+bool ledIsOn = true;
 
 byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111,
                  0b11111, 0b01110, 0b00100, 0b00000};
+
 byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
                   0b00000, 0b00000, 0b00000, 0b00000};
 
 void intro();
 void ledsLoop();
-void enableDisplay(bool turnOn);
+void enableDisplayAndLED(bool turnOn);
 void shortPressed();
 void longPressed();
+void checkOBD();
 void buttonListener();
 void printDataToScreen();
 void printRPM(int column, int row);

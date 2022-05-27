@@ -17,13 +17,13 @@ void setup() {
   intro();
 
   while (!OBD2.begin()) {
-    enableDisplay(false);
+    enableDisplayAndLED(false);
     delay(750);
   }
 
-  enableDisplay(true);
+  enableDisplayAndLED(true);
 
-  FastLED.addLeds<WS2813, DATA_PIN, RGB>(leds, NUM_LEDS, 0);
+  FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(50);
 }
 
@@ -35,7 +35,8 @@ void loop() {
   if (displayIsOn)
     printDataToScreen();
 
-  ledsLoop();
+  if (ledIsOn)
+    ledsLoop();
 }
 
 void intro() {
@@ -60,21 +61,25 @@ void intro() {
   delay(1000);
 }
 
-void enableDisplay(bool turnOn) {
+void enableDisplayAndLED(bool turnOn) {
   if (turnOn) {
     lcd.display();
     lcd.backlight();
     displayIsOn = true;
+    ledIsOn = true;
   } else {
     lcd.noDisplay();
     lcd.noBacklight();
     displayIsOn = false;
+    ledIsOn = false;
   }
 }
 
 void ledsLoop() {
 
   FastLED.clear();
+  // FastLED.show();
+  // leds->fadeToBlackBy(50);
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
@@ -82,6 +87,10 @@ void ledsLoop() {
     return;
 
   int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
+
+  // RPM dependent brightness
+  // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
+  // FastLED.setBrightness(newBrightness);
 
   fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Red);
   fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
@@ -106,19 +115,21 @@ void shortPressed() {
   lcd.clear();
 }
 
-void longPressed() {
-  // Toggle Display
-  enableDisplay(!displayIsOn);
-
+void checkOBD() {
   if (displayIsOn) {
     while (!OBD2.begin()) {
-      enableDisplay(false);
+      enableDisplayAndLED(false);
       delay(750);
     }
     intro();
-  } else {
+  } else
     OBD2.end();
-  }
+}
+
+void longPressed() {
+  // Toggle Display
+  enableDisplayAndLED(!displayIsOn);
+  checkOBD();
 }
 
 void buttonListener() {
@@ -184,6 +195,15 @@ void printDataToScreen() {
   }
 }
 
+/**
+ * @brief  Prints values to a display
+ * @param  title: Text to display on screen
+ * @param  pid: PID from OBD2 protocol
+ * @param  printUnits: print units as well
+ * @param  isFloat: Integer or floating format
+ * @param  column: column index
+ * @param  row: row index
+ */
 void printValue(String title, int pid, bool printUnits, bool isFloat,
                 int column, int row) {
 
