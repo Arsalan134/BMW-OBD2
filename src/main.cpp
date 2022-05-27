@@ -81,7 +81,6 @@ void ledsLoop() {
   float rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (!isnan(rpm)) {
-
     int level = map(rpm, 800, 4000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
