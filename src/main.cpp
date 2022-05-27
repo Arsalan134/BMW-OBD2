@@ -103,9 +103,8 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
     // FastLED.setBrightness(newBrightness);
 
-    // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow,
-    // CRGB::Magenta); fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
-    // CRGB::Black);
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Magenta);
+    fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
 
     FastLED.show();
     Serial.print("SHow ");
@@ -114,13 +113,13 @@ void ledsLoop() {
     Serial.println("Is NAN");
   }
 
-  leds[0] = CRGB::Red;
-  FastLED.show();
-  delay(200);
-  // Now turn the LED off, then pause
-  leds[0] = CRGB::Black;
-  FastLED.show();
-  delay(200);
+  // leds[0] = CRGB::Red;
+  // FastLED.show();
+  // delay(200);
+  // // Now turn the LED off, then pause
+  // leds[0] = CRGB::Black;
+  // FastLED.show();
+  // delay(200);
 }
 
 void shortPressed() {
