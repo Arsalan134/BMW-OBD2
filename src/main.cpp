@@ -82,16 +82,13 @@ void enableDisplayAndLED(bool turnOn) {
 void ledsLoop() {
 
   FastLED.clear();
-  FastLED.show();
+  // FastLED.show();
 
   float rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (!isnan(rpm)) {
 
-    if (rpm < 900)
-      return;
-
-    int level = map(rpm, 900, 4000, 0, NUM_LEDS);
+    int level = map(rpm, 800, 4000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
@@ -100,7 +97,7 @@ void ledsLoop() {
     fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
                       CRGB{255, 0, 0});
 
-    fill_gradient_RGB(leds, level + 1, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
+    fill_gradient_RGB(leds, level, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
 
     FastLED.show();
   }
