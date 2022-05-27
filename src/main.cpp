@@ -96,6 +96,7 @@ void ledsLoop() {
     // return;
 
     int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
+    level = constrain(level, 0, NUM_LEDS);
 
     Serial.print("Level ");
     Serial.println(level);
