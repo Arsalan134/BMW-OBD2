@@ -11,7 +11,7 @@
 
 #define LONG_PRESS_TIME 1000
 
-#define NUM_LEDS 25
+#define NUM_LEDS 20
 
 bool lastState = LOW;
 bool currentState;
