@@ -19,14 +19,11 @@ void setup() {
   // intro();
 
   while (!OBD2.begin()) {
-    enableDisplayAndLED(false);
     delay(750);
     Serial.println("Waiting OBD");
   }
 
   Serial.println("OBD is OK");
-
-  // enableDisplayAndLED(true);
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(50);
@@ -113,10 +110,21 @@ void ledsLoop() {
     FastLED.show();
     Serial.print("SHow ");
     Serial.println();
+  } else {
+    Serial.println("Is NAN");
   }
+
+  leds[0] = CRGB::Red;
+  FastLED.show();
+  delay(200);
+  // Now turn the LED off, then pause
+  leds[0] = CRGB::Black;
+  FastLED.show();
+  delay(200);
 }
 
 void shortPressed() {
+  Serial.println("Short Pressed");
   preset++;
   preset %= numberOfPresets;
 
@@ -133,6 +141,13 @@ void shortPressed() {
   lcd.clear();
 }
 
+void longPressed() {
+  Serial.println("Long press activated");
+  // Toggle Display
+  enableDisplayAndLED(!displayIsOn);
+  checkOBD();
+}
+
 void checkOBD() {
   if (displayIsOn) {
     while (!OBD2.begin()) {
@@ -142,12 +157,6 @@ void checkOBD() {
     intro();
   } else
     OBD2.end();
-}
-
-void longPressed() {
-  // Toggle Display
-  enableDisplayAndLED(!displayIsOn);
-  checkOBD();
 }
 
 void buttonListener() {
