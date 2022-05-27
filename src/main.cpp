@@ -14,11 +14,12 @@ void setup() {
   lcd.createChar(2, Degree);
   lcd.clear();
 
-  intro();
+  // intro();
 
   while (!OBD2.begin()) {
     enableDisplayAndLED(false);
     delay(750);
+    Serial.println("Waiting OBD");
   }
 
   // enableDisplayAndLED(true);
