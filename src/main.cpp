@@ -1,7 +1,6 @@
 #include "main.h"
 
 LiquidCrystal_I2C lcd(0x27, 20, 4);
-
 CRGB leds[NUM_LEDS];
 
 void setup() {
