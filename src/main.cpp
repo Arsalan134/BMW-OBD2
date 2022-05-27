@@ -24,6 +24,8 @@ void setup() {
     Serial.println("Waiting OBD");
   }
 
+  Serial.println("OBD is OK");
+
   // enableDisplayAndLED(true);
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
@@ -87,28 +89,31 @@ void ledsLoop() {
   // leds->fadeToBlackBy(50);
   Serial.println("Led Loop");
 
-  int rpm = OBD2.pidRead(ENGINE_RPM);
+  float rpm = OBD2.pidRead(ENGINE_RPM);
 
-  Serial.print("RPM ");
-  Serial.println(rpm);
+  if (!isnan(rpm)) {
+    Serial.print("RPM: ");
+    Serial.println(rpm);
 
-  // if (rpm < 1000)
-  // return;
+    // if (rpm < 1000)
+    // return;
 
-  int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
+    int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
 
-  Serial.print("Level ");
-  Serial.println(level);
-  // RPM dependent brightness
-  // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
-  // FastLED.setBrightness(newBrightness);
+    Serial.print("Level ");
+    Serial.println(level);
+    // RPM dependent brightness
+    // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
+    // FastLED.setBrightness(newBrightness);
 
-  fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Magenta);
-  // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
+    // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow,
+    // CRGB::Magenta); fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
+    // CRGB::Black);
 
-  FastLED.show();
-  Serial.print("SHow ");
-  Serial.println();
+    FastLED.show();
+    Serial.print("SHow ");
+    Serial.println();
+  }
 }
 
 void shortPressed() {
