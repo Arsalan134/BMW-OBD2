@@ -98,18 +98,22 @@ void ledsLoop() {
     // if (rpm < 1000)
     // return;
 
-    int level = map(2000, 1000, 7000, 0, NUM_LEDS);
+    int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    Serial.print("Level ");
-    Serial.println(level);
+    // Serial.print("Level ");
+    // Serial.println(level);
     // RPM dependent brightness
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
     // FastLED.setBrightness(newBrightness);
 
     // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow,
     // CRGB::Magenta);
-    fill_gradient_RGB(leds, 0, CRGB::Green, NUM_LEDS);
+    // fill_gradient_RGB(leds, 0, CRGB::Green, NUM_LEDS);
+    for (int i = 0; i < level; i++) {
+      leds[i] = CRGB::Green;
+    }
+
     // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
     // CRGB::Black);
 
