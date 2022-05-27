@@ -96,10 +96,6 @@ void ledsLoop() {
     fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
                       CRGB{255, 0, 0});
 
-    // for (int i = 0; i < level; i++) {
-    //   leds[i] = CRGB::Magenta;
-    // }
-
     fill_gradient_RGB(leds, level + 1, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
 
     FastLED.show();
