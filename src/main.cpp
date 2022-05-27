@@ -20,15 +20,10 @@ void setup() {
 
   while (!OBD2.begin()) {
     delay(750);
-    // Serial.println("Waiting OBD");
   }
-
-  // Serial.println("OBD is OK");
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(20);
-
-  // Serial.println("Setup Complete");
 }
 
 void loop() {
@@ -90,24 +85,25 @@ void ledsLoop() {
     int level = map(rpm, 800, 4000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
-    // FastLED.setBrightness(newBrightness);
-
     fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
                       CRGB{255, 0, 0});
-
     fill_gradient_RGB(leds, level, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
+
+    byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
+    FastLED.setBrightness(newBrightness);
+
+    if (rpm >= BLINK_RPM) {
+      if (ledBlinkPeriod > BLINK_DURATION) {
+        colorsAreTurnedOn = !colorsAreTurnedOn;
+        ledBlinkPeriod = millis();
+      }
+
+      if (!colorsAreTurnedOn)
+        FastLED.clear();
+    }
 
     FastLED.show();
   }
-
-  // leds[0] = CRGB::Red;
-  // FastLED.show();
-  // delay(200);
-  // // Now turn the LED off, then pause
-  // leds[0] = CRGB::Black;
-  // FastLED.show();
-  // delay(200);
 }
 
 void shortPressed() {

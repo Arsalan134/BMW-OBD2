@@ -10,15 +10,20 @@
 #define buttonPin 7
 
 #define LONG_PRESS_TIME 1000
+#define BLINK_DURATION 50
+#define BLINK_RPM 2500
 
 #define NUM_LEDS 15
 
-bool lastState = LOW;
-bool currentState;
-unsigned long pressedTime = 0;
-unsigned long releasedTime = 0;
+bool lastState = false;
+bool currentState = false;
 bool isPressing = false;
 bool isLongDetected = false;
+unsigned long pressedTime = 0;
+unsigned long releasedTime = 0;
+
+bool colorsAreTurnedOn = true;
+unsigned long ledBlinkPeriod = 0;
 
 int preset = 2;
 int numberOfPresets = 3;
