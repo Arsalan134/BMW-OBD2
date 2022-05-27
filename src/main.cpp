@@ -23,7 +23,8 @@ void setup() {
   }
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(20);
+  FastLED.setBrightness(10);
+  FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
 }
 
 void loop() {
@@ -78,8 +79,7 @@ void ledsLoop() {
 
   FastLED.clear();
 
-  // float rpm = OBD2.pidRead(ENGINE_RPM);
-  float rpm = 7000;
+  float rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (!isnan(rpm)) {
     int level = map(rpm, 800, 4000, 0, NUM_LEDS);
@@ -87,21 +87,23 @@ void ledsLoop() {
 
     fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
                       CRGB{255, 0, 0});
-    fill_gradient_RGB(leds, level, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
+
+    for (int i = level; i < NUM_LEDS; i++)
+      leds[i] = CRGB{0, 0, 0};
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    // if (rpm >= BLINK_RPM) {
-    //   if (ledBlinkPeriod > BLINK_DURATION) {
-    //     colorsAreTurnedOn = !colorsAreTurnedOn;
-    //     ledBlinkPeriod = millis();
-    //   }
+    if (rpm >= BLINK_RPM) {
+      if (ledBlinkPeriod > BLINK_DURATION) {
+        colorsAreTurnedOn = !colorsAreTurnedOn;
+        ledBlinkPeriod = millis();
+      }
 
-    //   if (!colorsAreTurnedOn) {
-    //      delay(100);
-    //   }
-    // }
+      if (!colorsAreTurnedOn)
+        for (int i = 0; i < NUM_LEDS; i++)
+          leds[i] = CRGB{0, 0, 0};
+    }
 
     FastLED.show();
   }
