@@ -6,7 +6,7 @@ CRGB leds[NUM_LEDS];
 void setup() {
   pinMode(buttonPin, INPUT);
 
-  // Serial.begin(9600);
+  Serial.begin(9600);
 
   lcd.init();
   lcd.clear();
@@ -91,15 +91,21 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
+    Serial.println("BEFORE");
     if (rpm >= BLINK_RPM) {
+      Serial.println("1");
       if (ledBlinkPeriod > BLINK_DURATION) {
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
+        Serial.println("2");
       }
 
+      Serial.println("3");
       if (!colorsAreTurnedOn)
         FastLED.clear();
     }
+
+    Serial.println("4");
 
     FastLED.show();
   }
