@@ -18,13 +18,13 @@ void setup() {
   intro();
 
   while (!OBD2.begin()) {
-    enableDisplay(false);
+    enableDisplayAndLED(false);
     delay(750);
   }
 
-  enableDisplay(true);
+  enableDisplayAndLED(true);
 
-  FastLED.addLeds<WS2813, DATA_PIN, RGB>(leds, NUM_LEDS, 0);
+  FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(50);
 }
 
@@ -36,7 +36,8 @@ void loop() {
   if (displayIsOn)
     printDataToScreen();
 
-  ledsLoop();
+  if (ledIsOn)
+    ledsLoop();
 }
 
 void intro() {
@@ -61,21 +62,25 @@ void intro() {
   delay(1000);
 }
 
-void enableDisplay(bool turnOn) {
+void enableDisplayAndLED(bool turnOn) {
   if (turnOn) {
     lcd.display();
     lcd.backlight();
     displayIsOn = true;
+    ledIsOn = true;
   } else {
     lcd.noDisplay();
     lcd.noBacklight();
     displayIsOn = false;
+    ledIsOn = false;
   }
 }
 
 void ledsLoop() {
 
   FastLED.clear();
+  // FastLED.show();
+  // leds->fadeToBlackBy(50);
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
@@ -111,19 +116,21 @@ void shortPressed() {
   lcd.clear();
 }
 
-void longPressed() {
-  // Toggle Display
-  enableDisplay(!displayIsOn);
-
+void checkOBD() {
   if (displayIsOn) {
     while (!OBD2.begin()) {
-      enableDisplay(false);
+      enableDisplayAndLED(false);
       delay(750);
     }
     intro();
-  } else {
+  } else
     OBD2.end();
-  }
+}
+
+void longPressed() {
+  // Toggle Display
+  enableDisplayAndLED(!displayIsOn);
+  checkOBD();
 }
 
 void buttonListener() {
