@@ -32,7 +32,7 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
+  delay(50);
 
   buttonListener();
 
@@ -86,8 +86,6 @@ void ledsLoop() {
   float rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (!isnan(rpm)) {
-    // if (rpm < 1000)
-    // return;
 
     int level = map(rpm, 700, 6000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
@@ -105,10 +103,6 @@ void ledsLoop() {
     fill_gradient_RGB(leds, level + 1, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
 
     FastLED.show();
-    Serial.print("SHow ");
-    Serial.println();
-  } else {
-    Serial.println("Is NAN");
   }
 
   // leds[0] = CRGB::Red;
