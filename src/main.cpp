@@ -92,13 +92,13 @@ void ledsLoop() {
   delay(100);
 
   if (!isnan(rpm)) {
-    Serial.print("RPM: ");
-    Serial.println(rpm);
+    // Serial.print("RPM: ");
+    // Serial.println(rpm);
 
     // if (rpm < 1000)
     // return;
 
-    int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
+    int level = map(2000, 1000, 7000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
     Serial.print("Level ");
@@ -109,7 +109,7 @@ void ledsLoop() {
 
     // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow,
     // CRGB::Magenta);
-    fill_gradient_RGB(leds, 0, CRGB::Green, NUM_LEDS);
+    fill_gradiewnt_RGB(leds, 0, CRGB::Green, NUM_LEDS);
     // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
     // CRGB::Black);
 
