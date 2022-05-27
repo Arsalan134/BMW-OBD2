@@ -78,7 +78,8 @@ void ledsLoop() {
 
   FastLED.clear();
 
-  float rpm = OBD2.pidRead(ENGINE_RPM);
+  // float rpm = OBD2.pidRead(ENGINE_RPM);
+  float rpm = 7000;
 
   if (!isnan(rpm)) {
     int level = map(rpm, 800, 4000, 0, NUM_LEDS);
@@ -91,17 +92,16 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= BLINK_RPM) {
-      if (ledBlinkPeriod > BLINK_DURATION) {
-        colorsAreTurnedOn = !colorsAreTurnedOn;
-        ledBlinkPeriod = millis();
-      }
+    // if (rpm >= BLINK_RPM) {
+    //   if (ledBlinkPeriod > BLINK_DURATION) {
+    //     colorsAreTurnedOn = !colorsAreTurnedOn;
+    //     ledBlinkPeriod = millis();
+    //   }
 
-      if (!colorsAreTurnedOn) {
-        FastLED.clear();
-        delay(100);
-      }
-    }
+    //   if (!colorsAreTurnedOn) {
+    //      delay(100);
+    //   }
+    // }
 
     FastLED.show();
   }
