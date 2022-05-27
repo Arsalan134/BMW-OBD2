@@ -86,10 +86,10 @@ void ledsLoop() {
   // leds->fadeToBlackBy(50);
   Serial.println("Led Loop");
 
-  delay(100);
+  // delay(100);
 
   float rpm = OBD2.pidRead(ENGINE_RPM);
-  delay(100);
+  // delay(100);
 
   if (!isnan(rpm)) {
     // Serial.print("RPM: ");
@@ -98,7 +98,7 @@ void ledsLoop() {
     // if (rpm < 1000)
     // return;
 
-    int level = map(rpm, 1000, 7000, 0, NUM_LEDS);
+    int level = map(rpm, 800, 7000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
     // Serial.print("Level ");
