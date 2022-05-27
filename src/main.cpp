@@ -111,7 +111,7 @@ void ledsLoop() {
     // CRGB::Magenta);
     // fill_gradient_RGB(leds, 0, CRGB::Green, NUM_LEDS);
     for (int i = 0; i < level; i++) {
-      leds[i] = CRGB::Green;
+      leds[i] = CRGB::Magenta;
     }
 
     // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
