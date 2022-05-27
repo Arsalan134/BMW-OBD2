@@ -89,8 +89,8 @@ void ledsLoop() {
                       CRGB{255, 0, 0});
     fill_gradient_RGB(leds, level, CRGB{0, 0, 0}, NUM_LEDS, CRGB{0, 0, 0});
 
-    byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
-    FastLED.setBrightness(newBrightness);
+    // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
+    // FastLED.setBrightness(newBrightness);
 
     if (rpm >= BLINK_RPM) {
       if (ledBlinkPeriod > BLINK_DURATION) {
