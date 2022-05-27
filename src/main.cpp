@@ -107,8 +107,7 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
     // FastLED.setBrightness(newBrightness);
 
-    // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow,
-    // CRGB::Magenta);
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green, CRGB::Yellow, CRGB::Magenta);
     // fill_gradient_RGB(leds, NUM_LEDS, CRGB::Green);
     // fill_solid(leds, )
     // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS,
