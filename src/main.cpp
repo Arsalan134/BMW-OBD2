@@ -6,6 +6,8 @@ CRGB leds[NUM_LEDS];
 void setup() {
   pinMode(buttonPin, INPUT);
 
+  Serial.begin(9600);
+
   lcd.init();
   lcd.clear();
   lcd.backlight();
