@@ -91,15 +91,15 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= BLINK_RPM) {
-      if (ledBlinkPeriod > BLINK_DURATION) {
-        colorsAreTurnedOn = !colorsAreTurnedOn;
-        ledBlinkPeriod = millis();
-      }
+    // if (rpm >= BLINK_RPM) {
+    //   if (ledBlinkPeriod > BLINK_DURATION) {
+    //     colorsAreTurnedOn = !colorsAreTurnedOn;
+    //     ledBlinkPeriod = millis();
+    //   }
 
-      if (!colorsAreTurnedOn)
-        FastLED.clear();
-    }
+    //   if (!colorsAreTurnedOn)
+    //     FastLED.clear();
+    // }
 
     FastLED.show();
   }
