@@ -87,7 +87,7 @@ void ledsLoop() {
 
   if (!isnan(rpm)) {
 
-    int level = map(rpm, 700, 6000, 0, NUM_LEDS);
+    int level = map(rpm, 800, 6000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 50, 200);
