@@ -26,7 +26,7 @@ void setup() {
   Serial.println("OBD is OK");
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(50);
+  FastLED.setBrightness(40);
 
   Serial.println("Setup Complete");
 }
