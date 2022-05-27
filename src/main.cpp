@@ -107,6 +107,8 @@ void ledsLoop() {
   // fill_gradient_RGB(leds, level + 1, CRGB::Black, NUM_LEDS, CRGB::Black);
 
   FastLED.show();
+  Serial.print("SHow ");
+  Serial.println();
 }
 
 void shortPressed() {
