@@ -1,6 +1,6 @@
 #include "main.h"
 
-char buffer[40];
+char buffer[21];
 
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 CRGB leds[NUM_LEDS];
@@ -24,7 +24,7 @@ void setup() {
     delay(750);
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(1);
+  FastLED.setBrightness(5);
   // FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
 }
 
@@ -100,8 +100,8 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= 1500.0) {
-      if (ledBlinkPeriod > BLINK_DURATION) {
+    if (rpm >= 1500.0) {             // change later to define var
+      if (ledBlinkPeriod > 1000.0) { // change later to define var
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
       }
