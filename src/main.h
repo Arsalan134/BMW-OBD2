@@ -20,6 +20,13 @@
 #define RPM_MIN 800
 #define RPM_MAX 2000
 
+// Display
+char buffer[21];
+
+// Objects
+LiquidCrystal_I2C lcd(0x27, 20, 4);
+CRGB leds[NUM_LEDS];
+
 // Changing Variables
 bool lastState = false;
 bool currentState = false;
