@@ -29,7 +29,7 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
+  delay(50);
 
   buttonListener();
 
@@ -91,8 +91,7 @@ void ledsLoop() {
     int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
-                      CRGB{255, 0, 0});
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
 
     for (int i = level; i < NUM_LEDS; i++)
       leds[i] = CRGB{0, 0, 0};
@@ -100,8 +99,8 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= 1500.0) {            // change later to define var
-      if (ledBlinkPeriod > 100.0) { // change later to define var
+    if (rpm >= 1500.0) {             // change later to define var
+      if (ledBlinkPeriod >= 100.0) { // change later to define var
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
       }
@@ -231,16 +230,14 @@ void printValue(String title, int pid, int column, int row) {
     } else {
       Serial.println(value);
       Serial.println("float");
-      sprintf(buffer, "%s%5.2f", title.c_str(), double(value));
+      sprintf(buffer, "%s%5.2f", title.c_str(), value);
     }
 
     lcd.print(buffer);
 
-    Serial.println("Buffer:");
-    Serial.println(buffer);
-
     lcd.print(" ");
     lcd.print(OBD2.pidUnits(pid));
+
   } else {
     Serial.println("Is nan!!!");
   }
