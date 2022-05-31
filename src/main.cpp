@@ -24,7 +24,7 @@ void setup() {
     delay(750);
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(5);
+  FastLED.setBrightness(150);
   // FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
 }
 
