@@ -29,15 +29,15 @@ void setup() {
 }
 
 void loop() {
-  delay(50);
+  delay(20);
 
   buttonListener();
 
-  // if (displayIsOn)
-  printDataToScreen();
+  if (displayIsOn)
+    printDataToScreen();
 
-  // if (ledIsOn)
-  ledsLoop();
+  if (ledIsOn)
+    ledsLoop();
 }
 
 void intro() {
@@ -79,9 +79,7 @@ void enableDisplayAndLED(bool turnOn) {
 }
 
 void ledsLoop() {
-  Serial.println("led loop");
-  // if (!ledIsOn)
-  // return;
+  // Serial.println("led loop");
 
   FastLED.clear();
 
@@ -99,19 +97,19 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= 1500.0) {             // change later to define var
-      if (ledBlinkPeriod >= 100.0) { // change later to define var
-        colorsAreTurnedOn = !colorsAreTurnedOn;
-        ledBlinkPeriod = millis();
-      }
-
-      if (!colorsAreTurnedOn)
-        for (int i = 0; i < NUM_LEDS; i++)
-          leds[i] = CRGB{0, 0, 0};
-
-      // or
-      // FastLED.clear();
+    // if (rpm >= 1500.0) {             // change later to define var
+    if (ledBlinkPeriod >= 100.0) { // change later to define var
+      colorsAreTurnedOn = !colorsAreTurnedOn;
+      ledBlinkPeriod = millis();
     }
+
+    if (!colorsAreTurnedOn)
+      for (int i = 0; i < NUM_LEDS; i++)
+        leds[i] = CRGB{0, 0, 0};
+
+    // or
+    // FastLED.clear();
+    // }
 
     FastLED.show();
   }
@@ -223,8 +221,6 @@ void printValue(String title, int pid, int column, int row) {
     lcd.setCursor(column, row);
 
     if (roundf(value) == value) {
-      Serial.println(value);
-      Serial.println("Integer");
       int value = int(value);
       sprintf(buffer, "%s%5d", title.c_str(), value);
     } else {
