@@ -6,15 +6,21 @@
 #include <OBD2.h>
 #include <Wire.h>
 
+// Pins
 #define LedPin 3
 #define buttonPin 7
 
+// Button
 #define LONG_PRESS_TIME 1000
+
+// LED
+#define NUM_LEDS 8
 #define BLINK_DURATION 100
 #define BLINK_RPM 1500
+#define RPM_MIN 800
+#define RPM_MAX 3000
 
-#define NUM_LEDS 8
-
+// Changing Variables
 bool lastState = false;
 bool currentState = false;
 bool isPressing = false;
@@ -45,7 +51,6 @@ void longPressed();
 void checkOBD();
 void buttonListener();
 void printDataToScreen();
-void printRPM(int column, int row);
 
 /**
  * @brief  Prints values to a display
