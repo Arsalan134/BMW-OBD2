@@ -216,8 +216,7 @@ void printDataToScreen() {
   }
 }
 
-void printValue(String title, int pid, int numberOfDigits, int column,
-                int row) {
+void printValue(String title, int pid, int column, int row) {
 
   float value = OBD2.pidRead(pid);
 
@@ -228,11 +227,11 @@ void printValue(String title, int pid, int numberOfDigits, int column,
       Serial.println(value);
       Serial.println("Integer");
       int value = int(value);
-      sprintf(buffer, "%s%5d", title, value);
+      sprintf(buffer, "%s%5d", title.c_str(), value);
     } else {
       Serial.println(value);
       Serial.println("float");
-      sprintf(buffer, "%s%5.2f", title, double(value));
+      sprintf(buffer, "%s%5.2f", title.c_str(), double(value));
     }
 
     lcd.print(buffer);
