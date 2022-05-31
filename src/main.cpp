@@ -5,6 +5,7 @@ void setup() {
 
   Serial.begin(9600);
 
+  // Display
   lcd.init();
   lcd.clear();
   lcd.backlight();
@@ -13,14 +14,16 @@ void setup() {
   lcd.createChar(2, Degree);
   lcd.clear();
 
-  // intro();
-
+  // OBD
   while (!OBD2.begin())
     delay(750);
 
+  // LED
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(150);
   // FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
+
+  // intro();
 }
 
 void loop() {
