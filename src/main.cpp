@@ -132,7 +132,6 @@ void shortPressed() {
 }
 
 void longPressed() {
-  // Serial.println("Long press activated");
   // Toggle Display
   enableDisplayAndLED(!displayIsOn);
   checkOBD();
