@@ -225,15 +225,25 @@ void printValue(String title, int pid, int numberOfDigits, int column,
     lcd.setCursor(column, row);
 
     if (roundf(value) == value) {
+      Serial.println(value);
+      Serial.println("Integer");
       int value = int(value);
-      sprintf(buffer, "%s%5d", title.c_str(), value);
-    } else
-      sprintf(buffer, "%s%5.2f", title.c_str(), double(value));
+      sprintf(buffer, "%s%5d", title, value);
+    } else {
+      Serial.println(value);
+      Serial.println("float");
+      sprintf(buffer, "%s%5.2f", title, double(value));
+    }
 
     lcd.print(buffer);
 
+    Serial.println("Buffer:");
+    Serial.println(buffer);
+
     lcd.print(" ");
     lcd.print(OBD2.pidUnits(pid));
+  } else {
+    Serial.println("Is nan!!!");
   }
 }
 

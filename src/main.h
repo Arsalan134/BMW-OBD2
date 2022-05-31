@@ -16,9 +16,9 @@
 // LED
 #define NUM_LEDS 8
 #define BLINK_DURATION 50
-#define BLINK_RPM 2000
+#define BLINK_RPM 1500
 #define RPM_MIN 800
-#define RPM_MAX 3000
+#define RPM_MAX 2000
 
 // Changing Variables
 bool lastState = false;
@@ -31,7 +31,7 @@ unsigned long releasedTime = 0;
 bool colorsAreTurnedOn = true;
 unsigned long ledBlinkPeriod = 0;
 
-int preset = 2;
+int preset = 0;
 int numberOfPresets = 3;
 
 bool displayIsOn = true;
