@@ -1,5 +1,7 @@
 #include "main.h"
 
+char buffer[40];
+
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 CRGB leds[NUM_LEDS];
 
@@ -18,13 +20,12 @@ void setup() {
 
   // intro();
 
-  while (!OBD2.begin()) {
+  while (!OBD2.begin())
     delay(750);
-  }
 
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(10);
-  FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
+  FastLED.setBrightness(1);
+  // FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
 }
 
 void loop() {
@@ -62,20 +63,25 @@ void intro() {
 }
 
 void enableDisplayAndLED(bool turnOn) {
+
+  displayIsOn = turnOn;
+  ledIsOn = turnOn;
+
   if (turnOn) {
     lcd.display();
     lcd.backlight();
-    displayIsOn = true;
-    ledIsOn = true;
   } else {
     lcd.noDisplay();
     lcd.noBacklight();
-    displayIsOn = false;
-    ledIsOn = false;
+    FastLED.clear();
+    FastLED.show();
   }
 }
 
 void ledsLoop() {
+  Serial.println("led loop");
+  // if (!ledIsOn)
+  // return;
 
   FastLED.clear();
 
@@ -94,7 +100,7 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= BLINK_RPM) {
+    if (rpm >= 1500.0) {
       if (ledBlinkPeriod > BLINK_DURATION) {
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
@@ -103,6 +109,8 @@ void ledsLoop() {
       if (!colorsAreTurnedOn)
         for (int i = 0; i < NUM_LEDS; i++)
           leds[i] = CRGB{0, 0, 0};
+      // or
+      // FastLED.clear();
     }
 
     FastLED.show();
@@ -185,9 +193,8 @@ void printDataToScreen() {
   switch (preset) {
 
   default:
-    printValue("Injection: ", FUEL_RAIL_GAUGE_PRESSURE, true, false, 0, 0);
-    printValue("Intake:    ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, true, false, 0,
-               1);
+    printValue("Injection:", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);           // 5
+    printValue("Intake:    ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1); // 4
     printTemp("Intake Temp: ", AIR_INTAKE_TEMPERATURE, 0, 2);
     printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
     break;
@@ -200,60 +207,32 @@ void printDataToScreen() {
     break;
 
   case 2:
-    printValue("RPM:    ", ENGINE_RPM, true, false, 0, 0);
-    printValue("Speed:  ", VEHICLE_SPEED, true, false, 0, 1);
-    printValue("Load:   ", CALCULATED_ENGINE_LOAD, true, true, 0, 2);
-    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, true, true, 0, 3);
+    printValue("RPM:    ", ENGINE_RPM, 0, 0);
+    printValue("Speed:  ", VEHICLE_SPEED, 0, 1);
+    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 0, 2); // 3 true
+    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 0, 3);  // 3 true
     break;
   }
 }
 
-/**
- * @brief  Prints values to a display
- * @param  title: Text to display on screen
- * @param  pid: PID from OBD2 protocol
- * @param  printUnits: print units as well
- * @param  isFloat: Integer or floating format
- * @param  column: column index
- * @param  row: row index
- */
-void printValue(String title, int pid, bool printUnits, bool isFloat,
-                int column, int row) {
+void printValue(String title, int pid, int numberOfDigits, int column,
+                int row) {
 
-  int lengthOfTitle = title.length();
+  float value = OBD2.pidRead(pid);
 
-  if (isFloat) {
-    float value = OBD2.pidRead(pid);
-    if (!isnan(value)) {
-      lcd.setCursor(column, row);
-      lcd.print(title);
+  if (!isnan(value)) {
+    lcd.setCursor(column, row);
 
-      lcd.print("     ");
-      lcd.setCursor(column + lengthOfTitle, row);
+    if (roundf(value) == value) {
+      int value = int(value);
+      sprintf(buffer, "%s%5d", title.c_str(), value);
+    } else
+      sprintf(buffer, "%s%5.2f", title.c_str(), double(value));
 
-      lcd.print(value);
+    lcd.print(buffer);
 
-      if (printUnits) {
-        lcd.print(" ");
-        lcd.print(OBD2.pidUnits(pid));
-      }
-    }
-  } else {
-    int value = OBD2.pidRead(pid);
-    if (!isnan(value)) {
-      lcd.setCursor(column, row);
-      lcd.print(title);
-
-      lcd.print("     ");
-      lcd.setCursor(column + lengthOfTitle, row);
-
-      lcd.print(value);
-
-      if (printUnits) {
-        lcd.print(" ");
-        lcd.print(OBD2.pidUnits(pid));
-      }
-    }
+    lcd.print(" ");
+    lcd.print(OBD2.pidUnits(pid));
   }
 }
 

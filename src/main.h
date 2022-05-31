@@ -13,7 +13,7 @@
 #define BLINK_DURATION 100
 #define BLINK_RPM 1500
 
-#define NUM_LEDS 15
+#define NUM_LEDS 8
 
 bool lastState = false;
 bool currentState = false;
@@ -27,6 +27,7 @@ unsigned long ledBlinkPeriod = 0;
 
 int preset = 2;
 int numberOfPresets = 3;
+
 bool displayIsOn = true;
 bool ledIsOn = true;
 
@@ -45,6 +46,15 @@ void checkOBD();
 void buttonListener();
 void printDataToScreen();
 void printRPM(int column, int row);
-void printValue(String title, int pid, bool printUnits, bool isFloat,
-                int column, int row);
+
+/**
+ * @brief  Prints values to a display
+ * @param  title: Text to display on screen
+ * @param  pid: PID from OBD2 protocol
+ * @param  numberOfDigits: Number of digits to reserve
+ * @param  column: column index
+ * @param  row: row index
+ */
+void printValue(String title, int pid, int column, int row);
+
 void printTemp(String title, int pid, int column, int row);
