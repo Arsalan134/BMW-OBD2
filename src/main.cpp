@@ -88,7 +88,7 @@ void ledsLoop() {
   float rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (!isnan(rpm)) {
-    int level = map(rpm, 800, 4000, 0, NUM_LEDS);
+    int level = map(rpm, 800, 3000, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
     fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
