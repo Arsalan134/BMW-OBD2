@@ -15,7 +15,7 @@
 
 // LED
 #define NUM_LEDS 8
-#define BLINK_DURATION 100
+#define BLINK_DURATION 50
 #define BLINK_RPM 2000
 #define RPM_MIN 800
 #define RPM_MAX 3000

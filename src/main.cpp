@@ -100,8 +100,8 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= 1500.0) {             // change later to define var
-      if (ledBlinkPeriod > 1000.0) { // change later to define var
+    if (rpm >= 1500.0) {            // change later to define var
+      if (ledBlinkPeriod > 100.0) { // change later to define var
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
       }
