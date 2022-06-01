@@ -194,7 +194,6 @@ void shortPressed() {
 }
 
 void longPressed() {
-  // Toggle Display
   enableDisplayAndLED(!displayIsOn);
   checkOBD();
 }
@@ -239,8 +238,7 @@ void buttonListener() {
     }
   }
 
-  // save the the last state
-  lastState = currentState;
+  lastState = currentState; // save the the last state
 }
 
 void printDataToScreen() {
@@ -250,8 +248,8 @@ void printDataToScreen() {
   switch (preset) {
 
   default:
-    printValue("Injection:", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);           // 5
-    printValue("Intake:    ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1); // 4
+    printValue("Injection:", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
+    printValue("Intake:    ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1);
     printTemp("Intake Temp: ", AIR_INTAKE_TEMPERATURE, 0, 2);
     printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
     break;
@@ -266,8 +264,8 @@ void printDataToScreen() {
   case 2:
     printValue("RPM:    ", ENGINE_RPM, 0, 0);
     printValue("Speed:  ", VEHICLE_SPEED, 0, 1);
-    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 0, 2); // 3 true
-    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 0, 3);  // 3 true
+    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 0, 2);
+    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 0, 3);
     break;
   }
 }
@@ -283,8 +281,9 @@ void printValue(String title, int pid, int column, int row) {
       int value = int(value);
       sprintf(buffer, "%s%5d", title.c_str(), value);
     } else {
+      Serial.print("float: ");
       Serial.println(value);
-      Serial.println("float");
+
       sprintf(buffer, "%s%5.2f", title.c_str(), value);
     }
 
