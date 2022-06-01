@@ -37,6 +37,7 @@ unsigned long releasedTime = 0;
 
 bool colorsAreTurnedOn = true;
 unsigned long ledBlinkPeriod = 0;
+bool isBlinkingRPMLimitPassed = false;
 
 int preset = 0;
 int numberOfPresets = 3;
@@ -58,6 +59,7 @@ void longPressed();
 void checkOBD();
 void buttonListener();
 void printDataToScreen();
+void printTemp(String title, int pid, int column, int row);
 
 /**
  * @brief  Prints values to a display
@@ -69,4 +71,4 @@ void printDataToScreen();
  */
 void printValue(String title, int pid, int column, int row);
 
-void printTemp(String title, int pid, int column, int row);
+void pride();
