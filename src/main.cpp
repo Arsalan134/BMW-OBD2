@@ -108,13 +108,13 @@ void ledsLoop() {
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
     // Blink
-    if (rpm >= BLINK_RPM) { // change later to define var
+    if (rpm >= BLINK_RPM) {
       if (!isBlinkingRPMLimitPassed) {
         isBlinkingRPMLimitPassed = true;
         ledBlinkPeriod = millis();
       }
 
-      if (ledBlinkPeriod >= BLINK_DURATION) { // change later to define var
+      if (ledBlinkPeriod >= BLINK_DURATION) {
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
       }
