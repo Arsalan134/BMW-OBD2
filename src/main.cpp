@@ -120,10 +120,7 @@ void ledsLoop() {
       }
 
       if (!colorsAreTurnedOn)
-        // FastLED.clear();
-        // or
-        for (int i = 0; i < NUM_LEDS; i++)
-          // leds[i] = CRGB{0, 0, 0};
+        for (int i = 0; i < level; i++)
           leds[i].fadeToBlackBy(255); // Fade to Black
 
     } else {
