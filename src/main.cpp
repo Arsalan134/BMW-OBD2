@@ -102,8 +102,8 @@ void ledsLoop() {
       leds[i].fadeToBlackBy(fadeRate);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
-    // FastLED.setBrightness(newBrightness);
 
+    // Blink
     if (rpm >= BLINK_RPM) { // change later to define var
       if (!isBlinkingRPMLimitPassed) {
         isBlinkingRPMLimitPassed = true;
@@ -119,7 +119,8 @@ void ledsLoop() {
         // FastLED.clear();
         // or
         for (int i = 0; i < NUM_LEDS; i++)
-          leds[i] = CRGB{0, 0, 0};
+          // leds[i] = CRGB{0, 0, 0};
+          leds[i].fadeToBlackBy(255);
 
     } else {
       isBlinkingRPMLimitPassed = false;
