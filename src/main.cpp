@@ -24,6 +24,8 @@ void setup() {
   // FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
 
   // intro();
+
+  fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
 }
 
 void loop() {
@@ -72,6 +74,7 @@ void enableDisplayAndLED(bool turnOn) {
   if (turnOn) {
     lcd.display();
     lcd.backlight();
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
   } else {
     lcd.noDisplay();
     lcd.noBacklight();
@@ -81,63 +84,42 @@ void enableDisplayAndLED(bool turnOn) {
 }
 
 void ledsLoop() {
-  FastLED.clear();
+  // FastLED.clear();
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (!isnan(rpm)) {
+
     int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
+    // Turn On
+    for (int i = 0; i < level; i++)
+      leds[i].maximizeBrightness(LED_MAX_BRIGHTNESS);
 
+    // Fade
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i] = CRGB{0, 0, 0};
-
-    // // Fade leds
-    // for (int i = 0; i < NUM_LEDS; i++) {
-    //   leds[i].fadeToBlackBy(fadeRate);
-    // }
-
-    // if (leds[0].red > 0)
-    //   for (int i = 0; i < NUM_LEDS; i++) {
-    //     // leds[i] = CRGB{0, 0, 0};
-    //     if (leds[i].red >= fadeRate)
-    //       leds[i].red -= fadeRate;
-    //     else
-    //       leds[i].red = 0;
-
-    //     if (leds[i].green >= fadeRate)
-    //       leds[i].green -= fadeRate;
-    //     else
-    //       leds[i].green = 0;
-
-    //     if (leds[i].blue >= fadeRate)
-    //       leds[i].blue -= fadeRate;
-    //     else
-    //       leds[i].blue = 0;
-    //   }
+      leds[i].fadeToBlackBy(fadeRate);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
     // FastLED.setBrightness(newBrightness);
 
-    if (rpm >= 1500) { // change later to define var
+    if (rpm >= BLINK_RPM) { // change later to define var
       if (!isBlinkingRPMLimitPassed) {
         isBlinkingRPMLimitPassed = true;
         ledBlinkPeriod = millis();
       }
 
-      if (ledBlinkPeriod >= 100.0) { // change later to define var
+      if (ledBlinkPeriod >= BLINK_DURATION) { // change later to define var
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
       }
 
       if (!colorsAreTurnedOn)
+        // FastLED.clear();
+        // or
         for (int i = 0; i < NUM_LEDS; i++)
           leds[i] = CRGB{0, 0, 0};
-
-      // or
-      // FastLED.clear();
 
     } else {
       isBlinkingRPMLimitPassed = false;

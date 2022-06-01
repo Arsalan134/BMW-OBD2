@@ -15,10 +15,12 @@
 
 // LED
 #define NUM_LEDS 8
+#define LED_MAX_BRIGHTNESS 50
 #define BLINK_DURATION 50
 #define BLINK_RPM 1500
 #define RPM_MIN 800
 #define RPM_MAX 2000
+#define fadeRate 10
 
 // Display
 char buffer[21];
