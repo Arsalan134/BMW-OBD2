@@ -11,16 +11,17 @@
 #define buttonPin 7
 
 // Button
+// Duration in milliseconds to hold to activate long press
 #define LONG_PRESS_TIME 1000
 
 // LED
-#define NUM_LEDS 8
-#define LED_MAX_BRIGHTNESS 50
-#define BLINK_DURATION 50
-#define BLINK_RPM 1500
-#define RPM_MIN 800
-#define RPM_MAX 2000
-#define fadeRate 10
+#define NUM_LEDS 8            // Number of LEDS to use
+#define LED_MAX_BRIGHTNESS 50 // 0 - 255
+#define BLINK_DURATION 50     // milliseconds
+#define BLINK_RPM 1500        // RPM threshold
+#define RPM_MIN 800           // Start rpm vlaue for the leds
+#define RPM_MAX 2000          // End rpm vlaue for the leds
+#define fadeRate 10           // Fading unnecessary LEDS
 
 // Display
 char buffer[21];

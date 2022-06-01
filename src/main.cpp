@@ -20,16 +20,20 @@ void setup() {
 
   // LED
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(150);
+  FastLED.setBrightness(LED_MAX_BRIGHTNESS);
   // FastLED.setMaxPowerInVoltsAndMilliamps(12, 300);
 
-  // intro();
+  intro();
 
+  // Define Colors and Turning LEDS off
   fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
+
+  for (int i = 0; i < NUM_LEDS; i++)
+    leds[i].fadeToBlackBy(255);
 }
 
 void loop() {
-  delay(20);
+  delay(10);
 
   buttonListener();
 
