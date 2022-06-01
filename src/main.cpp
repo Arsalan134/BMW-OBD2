@@ -124,7 +124,7 @@ void ledsLoop() {
         // or
         for (int i = 0; i < NUM_LEDS; i++)
           // leds[i] = CRGB{0, 0, 0};
-          leds[i].fadeToBlackBy(255);
+          leds[i].fadeToBlackBy(255); // Fade to Black
 
     } else {
       isBlinkingRPMLimitPassed = false;
@@ -176,7 +176,6 @@ void pride() {
 }
 
 void shortPressed() {
-  // Serial.println("Short Pressed");
   preset++;
   preset %= numberOfPresets;
 
@@ -202,7 +201,7 @@ void checkOBD() {
   if (displayIsOn) {
     while (!OBD2.begin()) {
       enableDisplayAndLED(false);
-      delay(750);
+      delay(500);
     }
     intro();
   } else
