@@ -32,7 +32,7 @@ void setup() {
 
 void loop() {
 
-  delay(1);
+  delay(10);
 
   buttonListener();
 
@@ -131,6 +131,9 @@ void ledsLoop() {
       isBlinkingRPMLimitPassed = false;
       ledBlinkPeriod = 0;
     }
+
+    Serial.print("Time: ");
+    Serial.println(ledBlinkPeriod);
 
     FastLED.show();
   }
