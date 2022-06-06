@@ -116,12 +116,12 @@ void ledsLoop() {
     if (rpm >= BLINK_RPM) {
       if (!isBlinkingRPMLimitPassed) {
         isBlinkingRPMLimitPassed = true;
-        ledBlinkPeriod = millis();
+        ledBlinkStartMillis = millis();
       }
 
-      if (ledBlinkPeriod >= 2000.0) {
+      if (millis() - ledBlinkStartMillis >= BLINK_DURATION) {
         colorsAreTurnedOn = !colorsAreTurnedOn;
-        ledBlinkPeriod = millis();
+        ledBlinkStartMillis = millis();
       }
 
       if (!colorsAreTurnedOn)
@@ -129,11 +129,7 @@ void ledsLoop() {
 
     } else {
       isBlinkingRPMLimitPassed = false;
-      ledBlinkPeriod = 0;
     }
-
-    Serial.print("Time: ");
-    Serial.println(ledBlinkPeriod);
 
     FastLED.show();
   }

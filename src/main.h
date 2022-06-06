@@ -38,7 +38,7 @@ unsigned long pressedTime = 0;
 unsigned long releasedTime = 0;
 
 bool colorsAreTurnedOn = true;
-unsigned long ledBlinkPeriod = 0;
+unsigned long ledBlinkStartMillis = 0;
 bool isBlinkingRPMLimitPassed = false;
 
 int preset = 0;
