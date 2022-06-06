@@ -81,7 +81,7 @@ void enableDisplayAndLED(bool turnOn) {
     lcd.display();
     lcd.backlight();
 
-    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
+    // fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
 
   } else {
     lcd.noDisplay();
