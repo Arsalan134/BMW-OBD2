@@ -15,7 +15,7 @@ void setup() {
 
   // OBD
   while (!OBD2.begin())
-    delay(750);
+    delay(500);
 
   // LED
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
@@ -23,30 +23,28 @@ void setup() {
 
   // intro();
 
-  // Define Colors and Turning LEDS off
-  // for (int i = 0; i < NUM_LEDS; i++)
-  // leds[i].fadeToBlackBy(255);
+  timer.every(200, displayLoop);
+}
 
-  // fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
+bool displayLoop(void *) {
+
+  if (displayIsOn)
+    printDataToScreen();
+
+  return true;
 }
 
 void loop() {
 
-  delay(10);
+  timer.tick();
 
   buttonListener();
-
-  // if (displayIsOn)
-  // printDataToScreen();
 
   if (ledIsOn)
     ledsLoop();
 }
 
 void intro() {
-
-  // pride();
-  // FastLED.show();
 
   lcd.clear();
 

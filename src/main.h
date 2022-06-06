@@ -5,6 +5,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <OBD2.h>
 #include <Wire.h>
+#include <arduino-timer.h>
 
 // Pins
 #define LedPin 3
@@ -19,9 +20,9 @@
 #define LED_MAX_BRIGHTNESS 50 // 0 - 255
 #define BLINK_DURATION 75     // milliseconds
 
-#define RPM_MIN 800    // Start rpm value for the leds
-#define RPM_MAX 1500   // End rpm value for the leds
-#define BLINK_RPM 1500 // RPM threshold for blink to start
+#define RPM_MIN 3000   // Start rpm value for the leds
+#define RPM_MAX 5000   // End rpm value for the leds
+#define BLINK_RPM 5200 // RPM threshold for blink to start
 
 // Display
 char buffer[21];
@@ -54,6 +55,8 @@ byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111,
 byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
                   0b00000, 0b00000, 0b00000, 0b00000};
 
+auto timer = timer_create_default();
+
 void intro();
 void ledsLoop();
 void enableDisplayAndLED(bool turnOn);
@@ -63,6 +66,7 @@ void checkOBD();
 void buttonListener();
 void printDataToScreen();
 void printTemp(String title, int pid, int column, int row);
+void displayLoop();
 
 /**
  * @brief  Prints values to a display
