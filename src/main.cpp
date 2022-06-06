@@ -21,7 +21,7 @@ void setup() {
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
-  // intro();
+  intro();
 
   timer.every(200, displayLoop);
 }
