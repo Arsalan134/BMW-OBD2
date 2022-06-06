@@ -124,8 +124,7 @@ void ledsLoop() {
       }
 
       if (!colorsAreTurnedOn)
-        for (int i = 0; i < level; i++)
-          leds[i] = CRGB::Black;
+        FastLED.clear();
 
       isBlinkingRPMLimitPassed = false;
       ledBlinkPeriod = 0;
