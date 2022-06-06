@@ -119,7 +119,7 @@ void ledsLoop() {
         ledBlinkPeriod = millis();
       }
 
-      if (ledBlinkPeriod >= BLINK_DURATION) {
+      if (ledBlinkPeriod >= 2000.0) {
         colorsAreTurnedOn = !colorsAreTurnedOn;
         ledBlinkPeriod = millis();
       }
