@@ -21,7 +21,7 @@ void setup() {
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
-  intro();
+  // intro();
 
   // Define Colors and Turning LEDS off
   for (int i = 0; i < NUM_LEDS; i++)
@@ -93,7 +93,6 @@ void enableDisplayAndLED(bool turnOn) {
 }
 
 void ledsLoop() {
-  // FastLED.clear();
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
@@ -103,8 +102,11 @@ void ledsLoop() {
     level = constrain(level, 0, NUM_LEDS);
 
     // Turn On
-    for (int i = 0; i < level; i++)
-      leds[i].maximizeBrightness(LED_MAX_BRIGHTNESS);
+    for (int i = 0; i < level; i++) {
+      leds[i].red = 100;
+      leds[i].green = 0;
+      leds[i].blue = 0;
+    }
 
     // Fade
     for (int i = level; i < NUM_LEDS; i++)
