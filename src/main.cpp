@@ -24,10 +24,10 @@ void setup() {
   // intro();
 
   // Define Colors and Turning LEDS off
-  for (int i = 0; i < NUM_LEDS; i++)
-    leds[i].fadeToBlackBy(255);
+  // for (int i = 0; i < NUM_LEDS; i++)
+  // leds[i].fadeToBlackBy(255);
 
-  fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
+  // fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
 }
 
 void loop() {
