@@ -31,7 +31,7 @@ void setup() {
 }
 
 void loop() {
-  delay(10);
+  delay(20);
 
   buttonListener();
 
@@ -102,36 +102,35 @@ void ledsLoop() {
     level = constrain(level, 0, NUM_LEDS);
 
     // Turn On
-    for (int i = 0; i < level; i++) {
-      leds[i].maximizeBrightness();
-    }
+    for (int i = 0; i < level; i++)
+      leds[i].maximizeBrightness(1);
 
     // Fade
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i].fadeLightBy(fadeRate);
+      leds[i].fadeLightBy(-fadeRate);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
     // Blink
-    if (rpm >= BLINK_RPM) {
-      if (!isBlinkingRPMLimitPassed) {
-        isBlinkingRPMLimitPassed = true;
-        ledBlinkPeriod = millis();
-      }
+    // if (rpm >= BLINK_RPM) {
+    //   if (!isBlinkingRPMLimitPassed) {
+    //     isBlinkingRPMLimitPassed = true;
+    //     ledBlinkPeriod = millis();
+    //   }
 
-      if (ledBlinkPeriod >= BLINK_DURATION) {
-        colorsAreTurnedOn = !colorsAreTurnedOn;
-        ledBlinkPeriod = millis();
-      }
+    //   if (ledBlinkPeriod >= BLINK_DURATION) {
+    //     colorsAreTurnedOn = !colorsAreTurnedOn;
+    //     ledBlinkPeriod = millis();
+    //   }
 
-      if (!colorsAreTurnedOn)
-        for (int i = 0; i < level; i++)
-          leds[i].fadeToBlackBy(255); // Fade to Black
+    //   if (!colorsAreTurnedOn)
+    //     for (int i = 0; i < level; i++)
+    //       leds[i].fadeToBlackBy(255); // Fade to Black
 
-    } else {
-      isBlinkingRPMLimitPassed = false;
-      ledBlinkPeriod = 0;
-    }
+    // } else {
+    //   isBlinkingRPMLimitPassed = false;
+    //   ledBlinkPeriod = 0;
+    // }
 
     FastLED.show();
   }
