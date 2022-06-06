@@ -103,14 +103,12 @@ void ledsLoop() {
 
     // Turn On
     for (int i = 0; i < level; i++) {
-      leds[i].red = 100;
-      leds[i].green = 0;
-      leds[i].blue = 0;
+      leds[i].maximizeBrightness();
     }
 
     // Fade
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i].fadeToBlackBy(fadeRate);
+      leds[i].fadeLightBy(fadeRate);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
