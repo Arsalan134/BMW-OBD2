@@ -36,8 +36,8 @@ void loop() {
 
   buttonListener();
 
-  // if (displayIsOn)
-  // printDataToScreen();
+  if (displayIsOn)
+    printDataToScreen();
 
   if (ledIsOn)
     ledsLoop();
