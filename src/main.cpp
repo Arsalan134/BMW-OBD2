@@ -101,13 +101,17 @@ void ledsLoop() {
     int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
+    // for (int i = 0; i < level; i++) {
+    //   leds[i].
+    // }
+
     // Turn On
     for (int i = 0; i < level; i++)
-      FastLED.setBrightness(LED_MAX_BRIGHTNESS);
+      leds[i] = CRGB::Magenta;
 
     // Fade
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i].fadeLightBy(fadeRate);
+      leds[i] = CRGB::Black;
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
