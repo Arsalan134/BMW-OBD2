@@ -81,8 +81,6 @@ void enableDisplayAndLED(bool turnOn) {
     lcd.display();
     lcd.backlight();
 
-    // fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
-
   } else {
     lcd.noDisplay();
     lcd.noBacklight();
@@ -101,36 +99,37 @@ void ledsLoop() {
     int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    // Turn On
-    for (int i = 0; i < level; i++)
-      leds[i] = CRGB::Magenta;
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
 
-    // Fade
+    // Turn On
+    // for (int i = 0; i < level; i++)
+    //   leds[i] = CRGB::Magenta;
+
+    // Turn Off
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i].fadeToBlackBy(fadeRate);
+      leds[i] = CRGB::Black;
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
     // Blink
-    // if (rpm >= BLINK_RPM) {
-    //   if (!isBlinkingRPMLimitPassed) {
-    //     isBlinkingRPMLimitPassed = true;
-    //     ledBlinkPeriod = millis();
-    //   }
+    if (rpm >= BLINK_RPM) {
+      if (!isBlinkingRPMLimitPassed) {
+        isBlinkingRPMLimitPassed = true;
+        ledBlinkPeriod = millis();
+      }
 
-    //   if (ledBlinkPeriod >= BLINK_DURATION) {
-    //     colorsAreTurnedOn = !colorsAreTurnedOn;
-    //     ledBlinkPeriod = millis();
-    //   }
+      if (ledBlinkPeriod >= BLINK_DURATION) {
+        colorsAreTurnedOn = !colorsAreTurnedOn;
+        ledBlinkPeriod = millis();
+      }
 
-    //   if (!colorsAreTurnedOn)
-    //     for (int i = 0; i < level; i++)
-    //       leds[i].fadeToBlackBy(255); // Fade to Black
+      if (!colorsAreTurnedOn)
+        for (int i = 0; i < level; i++)
+          leds[i] = CRGB::Black;
 
-    // } else {
-    //   isBlinkingRPMLimitPassed = false;
-    //   ledBlinkPeriod = 0;
-    // }
+      isBlinkingRPMLimitPassed = false;
+      ledBlinkPeriod = 0;
+    }
 
     FastLED.show();
   }
