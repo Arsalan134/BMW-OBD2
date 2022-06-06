@@ -103,11 +103,11 @@ void ledsLoop() {
 
     // Turn On
     for (int i = 0; i < level; i++)
-      leds[i].maximizeBrightness(1);
+      FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
     // Fade
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i].fadeLightBy(-fadeRate);
+      leds[i].fadeLightBy(fadeRate);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
