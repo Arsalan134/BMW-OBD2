@@ -111,7 +111,7 @@ void ledsLoop() {
 
     // Fade
     for (int i = level; i < NUM_LEDS; i++)
-      leds[i] = CRGB::Black;
+      leds[i].fadeToBlackBy(fadeRate);
 
     // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
