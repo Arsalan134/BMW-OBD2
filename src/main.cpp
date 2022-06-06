@@ -31,12 +31,12 @@ void setup() {
 }
 
 void loop() {
-  delay(1);
+  // delay(1);
 
   buttonListener();
 
-  if (displayIsOn)
-    printDataToScreen();
+  // if (displayIsOn)
+  // printDataToScreen();
 
   if (ledIsOn)
     ledsLoop();
@@ -44,8 +44,8 @@ void loop() {
 
 void intro() {
 
-  pride();
-  FastLED.show();
+  // pride();
+  // FastLED.show();
 
   lcd.clear();
 
@@ -69,7 +69,7 @@ void intro() {
 
   lcd.clear();
 
-  delay(1000);
+  // delay(1000);
 }
 
 void enableDisplayAndLED(bool turnOn) {
@@ -126,6 +126,7 @@ void ledsLoop() {
       if (!colorsAreTurnedOn)
         FastLED.clear();
 
+    } else {
       isBlinkingRPMLimitPassed = false;
       ledBlinkPeriod = 0;
     }
