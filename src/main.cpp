@@ -69,8 +69,6 @@ void intro() {
   delay(2000);
 
   lcd.clear();
-
-  // delay(1000);
 }
 
 void enableDisplayAndLED(bool turnOn) {
