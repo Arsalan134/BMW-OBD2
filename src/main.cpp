@@ -31,7 +31,7 @@ void setup() {
 }
 
 void loop() {
-  delay(10);
+  delay(1);
 
   buttonListener();
 
@@ -99,8 +99,7 @@ void ledsLoop() {
     int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 255, 0},
-                      CRGB{255, 0, 0});
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB{0, 255, 0}, CRGB{255, 0, 0});
 
     // Turn On
     // for (int i = 0; i < level; i++)
