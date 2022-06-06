@@ -28,8 +28,15 @@ void setup() {
 
 bool displayLoop(void *) {
 
-  if (displayIsOn)
+  switch (stateOfDevices) {
+  case onAll:
+  case onlyDisplay:
     printDataToScreen();
+    break;
+
+  default:
+    break;
+  }
 
   return true;
 }
@@ -40,8 +47,15 @@ void loop() {
 
   buttonListener();
 
-  if (ledIsOn)
+  switch (stateOfDevices) {
+  case onAll:
+  case onlyLed:
     ledsLoop();
+    break;
+
+  default:
+    break;
+  }
 }
 
 void intro() {
@@ -69,21 +83,13 @@ void intro() {
   lcd.clear();
 }
 
-void enableDisplayAndLED(bool turnOn) {
-
-  displayIsOn = turnOn;
-  ledIsOn = turnOn;
-
+void enableDisplay(bool turnOn) {
   if (turnOn) {
     lcd.display();
     lcd.backlight();
-
   } else {
     lcd.noDisplay();
     lcd.noBacklight();
-
-    FastLED.clear();
-    FastLED.show();
   }
 }
 
@@ -98,15 +104,8 @@ void ledsLoop() {
 
     fill_gradient_RGB(leds, NUM_LEDS, CRGB{255, 255, 0}, CRGB{255, 0, 255});
 
-    // Turn On
-    // for (int i = 0; i < level; i++)
-    //   leds[i] = CRGB::Magenta;
-
-    // Turn Off
     for (int i = level; i < NUM_LEDS; i++)
       leds[i] = CRGB::Black;
-
-    // byte newBrightness = map(level, 0, NUM_LEDS, 20, 100);
 
     // Blink
     if (rpm >= BLINK_RPM) {
@@ -149,18 +148,50 @@ void shortPressed() {
 }
 
 void longPressed() {
-  enableDisplayAndLED(!displayIsOn);
-  checkOBD();
+  if (stateOfDevices == offAll)
+    checkOBD();
+
+  switchState();
+}
+
+void switchState() {
+  switch (stateOfDevices) {
+  case onAll:
+    stateOfDevices = offAll;
+
+    enableDisplay(false);
+    break;
+
+  case offAll:
+    stateOfDevices = onlyLed;
+
+    enableDisplay(true);
+    break;
+
+  case onlyLed:
+    stateOfDevices = onlyDisplay;
+
+    enableDisplay(true);
+    break;
+
+  case onlyDisplay:
+    stateOfDevices = onAll;
+
+    enableDisplay(false);
+    break;
+
+  default:
+    stateOfDevices = onAll;
+    enableDisplay(true);
+    break;
+  }
 }
 
 void checkOBD() {
-  if (displayIsOn) {
-    while (!OBD2.begin()) {
-      enableDisplayAndLED(false);
+  if (stateOfDevices != offAll)
+    while (!OBD2.begin())
       delay(500);
-    }
-    intro();
-  } else
+  else
     OBD2.end();
 }
 
@@ -263,45 +294,5 @@ void printTemp(String title, int pid, int column, int row) {
     lcd.print(" ");
     lcd.write(2);
     lcd.print("C");
-  }
-}
-
-void pride() {
-  static uint16_t sPseudotime = 0;
-  static uint16_t sLastMillis = 0;
-  static uint16_t sHue16 = 0;
-
-  uint8_t sat8 = beatsin88(87, 220, 250);
-  uint8_t brightdepth = beatsin88(341, 96, 224);
-  uint16_t brightnessthetainc16 = beatsin88(203, (25 * 256), (40 * 256));
-  uint8_t msmultiplier = beatsin88(147, 23, 60);
-
-  uint16_t hue16 = sHue16; // gHue * 256;
-  uint16_t hueinc16 = beatsin88(113, 1, 3000);
-
-  uint16_t ms = millis();
-  uint16_t deltams = ms - sLastMillis;
-  sLastMillis = ms;
-  sPseudotime += deltams * msmultiplier;
-  sHue16 += deltams * beatsin88(400, 5, 9);
-  uint16_t brightnesstheta16 = sPseudotime;
-
-  for (uint16_t i = 0; i < NUM_LEDS; i++) {
-    hue16 += hueinc16;
-    uint8_t hue8 = hue16 / 256;
-
-    brightnesstheta16 += brightnessthetainc16;
-    uint16_t b16 = sin16(brightnesstheta16) + 32768;
-
-    uint16_t bri16 = (uint32_t)((uint32_t)b16 * (uint32_t)b16) / 65536;
-    uint8_t bri8 = (uint32_t)(((uint32_t)bri16) * brightdepth) / 65536;
-    bri8 += (255 - brightdepth);
-
-    CRGB newcolor = CHSV(hue8, sat8, bri8);
-
-    uint16_t pixelnumber = i;
-    pixelnumber = (NUM_LEDS - 1) - pixelnumber;
-
-    nblend(leds[pixelnumber], newcolor, 64);
   }
 }

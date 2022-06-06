@@ -46,9 +46,6 @@ bool isBlinkingRPMLimitPassed = false;
 int preset = 0;
 int numberOfPresets = 3;
 
-bool displayIsOn = true;
-bool ledIsOn = true;
-
 byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111,
                  0b11111, 0b01110, 0b00100, 0b00000};
 
@@ -57,9 +54,18 @@ byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
 
 auto timer = timer_create_default();
 
+/*
+ *0 off all
+ * 1 led on
+ * 2 display on
+ * 3 on all
+ */
+
+enum StateOfDevices { onAll, offAll, onlyDisplay, onlyLed };
+StateOfDevices stateOfDevices = onAll;
+
 void intro();
 void ledsLoop();
-void enableDisplayAndLED(bool turnOn);
 void shortPressed();
 void longPressed();
 void checkOBD();
@@ -67,6 +73,7 @@ void buttonListener();
 void printDataToScreen();
 void printTemp(String title, int pid, int column, int row);
 void displayLoop();
+void switchState();
 
 /**
  * @brief  Prints values to a display
