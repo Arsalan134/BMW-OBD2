@@ -32,6 +32,8 @@ void setup() {
 
 void loop() {
 
+  delay(1);
+
   buttonListener();
 
   // if (displayIsOn)
