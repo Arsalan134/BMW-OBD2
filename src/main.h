@@ -15,7 +15,7 @@
 #define LONG_PRESS_TIME 1000
 
 // LED
-#define NUM_LEDS 8            // Number of LEDS to use
+#define NUM_LEDS 9            // Number of LEDS to use
 #define LED_MAX_BRIGHTNESS 50 // 0 - 255
 #define BLINK_DURATION 50     // milliseconds
 #define BLINK_RPM 1500        // RPM threshold for blink to start
