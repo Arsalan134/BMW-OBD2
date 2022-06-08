@@ -3,17 +3,11 @@
 void setup() {
   pinMode(buttonPin, INPUT);
 
-  // Serial.begin(9600);
-
-  // delay(200);
-
   // Display
   lcd.init();
   lcd.clear();
-
   lcd.createChar(1, Heart);
   lcd.createChar(2, Degree);
-  lcd.clear();
 
   // OBD
   while (!OBD2.begin())
@@ -25,7 +19,7 @@ void setup() {
 
   intro();
 
-  enableDisplay(false);
+  switchState(stateOfDevices);
 
   timer.every(1000, displayLoop);
 }
