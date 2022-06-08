@@ -65,18 +65,9 @@ void loop() {
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
-  Serial.println(rpm);
-
   if (rpm < 100) {
-    Serial.println("ENGINE OFF");
     enableDisplay(false);
     stateOfDevices = offAll;
-  }
-
-  if (!isnan(rpm)) {
-    Serial.println("IS NOT NAN");
-  } else {
-    Serial.println("IS NAN");
   }
 }
 
