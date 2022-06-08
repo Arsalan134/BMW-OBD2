@@ -38,7 +38,7 @@ void setup() {
 
   intro();
 
-  timer.every(200, displayLoop);
+  timer.every(1000, displayLoop);
 }
 
 void loop() {
@@ -177,7 +177,7 @@ void switchState() {
   case onlyDisplay:
     stateOfDevices = onAll;
 
-    enableDisplay(false);
+    enableDisplay(true);
     break;
 
   default:
