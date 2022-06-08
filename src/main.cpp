@@ -269,13 +269,17 @@ void printValue(String title, int pid, int column, int row) {
 
     if (roundf(value) == value) {
       int value = int(value);
+      Serial.println(title);
       Serial.print("int : ");
       Serial.println(value);
+      Serial.println();
 
       sprintf(buffer, "%s%5d", title.c_str(), value);
     } else {
+      Serial.println(title);
       Serial.print("float: ");
       Serial.println(value);
+      Serial.println();
 
       sprintf(buffer, "%s%5.2f", title.c_str(), value);
     }
