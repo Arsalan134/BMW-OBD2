@@ -277,28 +277,6 @@ void printValue(String title, int pid, int column, int row) {
   if (!isnan(value)) {
     lcd.setCursor(column, row);
 
-    // if (roundf(value) == value) {
-    //   int value = int(value);
-    //   Serial.println(title);
-    //   Serial.print("int : ");
-    //   Serial.println(value);
-    //   Serial.println();
-
-    //   sprintf(buffer, "%s%5d", title.c_str(), value);
-
-    // } else {
-    //   Serial.println(title);
-    //   Serial.print("float: ");
-    //   Serial.println(value);
-    //   Serial.println();
-
-    // rpm int 0
-    // speed int 0
-    // load fuel float 465
-
-    // sprintf(buffer, "%s%5.2f", title.c_str(), value);
-    // lcd.print(buffer);
-
     lcd.print(title);
 
     if (roundf(value) == value)
@@ -306,14 +284,8 @@ void printValue(String title, int pid, int column, int row) {
     else
       lcd.print(value);
 
-    // }
-
-    // lcd.print(buffer);
-
     lcd.print(" ");
     lcd.print(OBD2.pidUnits(pid));
-  } else {
-    Serial.println("Is nan!!!");
   }
 }
 
