@@ -290,7 +290,12 @@ void printValue(String title, int pid, int column, int row) {
     // lcd.print(buffer);
 
     lcd.print(title);
-    lcd.print(value);
+
+    if (roundf(value) == value)
+      lcd.print(int(value));
+    else
+      lcd.print(value);
+
     // }
 
     // lcd.print(buffer);
