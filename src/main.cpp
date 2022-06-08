@@ -1,20 +1,17 @@
 #include "main.h"
 
 void setup() {
-  pinMode(buttonPin, INPUT);
+  pinMode(BUTTON_PIN, INPUT);
 
-  // Display
   lcd.init();
   lcd.clear();
   lcd.createChar(1, Heart);
   lcd.createChar(2, Degree);
 
-  // OBD
   while (!OBD2.begin())
     delay(500);
 
-  // LED
-  FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
+  FastLED.addLeds<WS2813, LED_PIN, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
   intro();
@@ -47,6 +44,7 @@ void loop() {
   // Check Engine State
   if (rpm < TURN_OFF_RPM) {
     if (stateOfDevices != offAll) {
+      delay(500);
       switchState(offAll);
       introPresented = false;
     } else
@@ -212,7 +210,7 @@ void switchState(StateOfDevices to) {
 }
 
 void buttonListener() {
-  currentState = digitalRead(buttonPin);
+  currentState = digitalRead(BUTTON_PIN);
 
   // button is pressed
   if (lastState && !currentState) {

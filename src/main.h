@@ -8,8 +8,8 @@
 #include <arduino-timer.h>
 
 // Pins
-#define LedPin 3
-#define buttonPin 7
+#define LED_PIN 3
+#define BUTTON_PIN 7
 
 // Button
 // Duration in milliseconds to hold to activate long press
@@ -26,9 +26,6 @@
 
 // Threshold at which arduino considers engine turned off
 #define TURN_OFF_RPM 100
-
-// Display
-char buffer[21];
 
 // Objects
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -58,14 +55,7 @@ byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
 
 auto timer = timer_create_default();
 
-/*
- * 0 off all
- * 1 led on
- * 2 display on
- * 3 on all
- */
-
-enum StateOfDevices { offAll, onAll, onlyDisplay, onlyLed };
+enum StateOfDevices { offAll, onlyLed, onAll, onlyDisplay };
 
 StateOfDevices stateOfDevices = offAll;
 
@@ -85,7 +75,6 @@ void ledsLoop();
  * @brief  Prints values to a display
  * @param  title: Text to display on screen
  * @param  pid: PID from OBD2 protocol
- * @param  numberOfDigits: Number of digits to reserve
  * @param  column: column index
  * @param  row: row index
  */
