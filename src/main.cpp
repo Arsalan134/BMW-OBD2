@@ -65,6 +65,8 @@ void loop() {
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
+  Serial.println(rpm);
+
   if (rpm < 100) {
     Serial.println("ENGINE OFF");
     enableDisplay(false);
