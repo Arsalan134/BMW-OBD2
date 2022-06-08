@@ -83,6 +83,8 @@ void intro() {
   delay(2000);
 
   lcd.clear();
+
+  enableDisplay(false);
 }
 
 void enableDisplay(bool turnOn) {
