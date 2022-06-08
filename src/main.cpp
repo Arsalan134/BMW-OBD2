@@ -43,6 +43,8 @@ void setup() {
 
 void loop() {
 
+  delay(200);
+
   timer.tick();
 
   buttonListener();
@@ -177,7 +179,7 @@ void switchState() {
   case onlyDisplay:
     stateOfDevices = offAll;
 
-    enableDisplay(true);
+    enableDisplay(false);
     break;
 
   default:
