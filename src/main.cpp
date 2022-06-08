@@ -58,7 +58,23 @@ void loop() {
     break;
 
   default:
+    FastLED.clear();
+    FastLED.show();
     break;
+  }
+
+  int rpm = OBD2.pidRead(ENGINE_RPM);
+
+  if (rpm < 100) {
+    Serial.println("ENGINE OFF");
+    enableDisplay(false);
+    stateOfDevices = offAll;
+  }
+
+  if (!isnan(rpm)) {
+    Serial.println("IS NOT NAN");
+  } else {
+    Serial.println("IS NAN");
   }
 }
 
@@ -100,12 +116,6 @@ void enableDisplay(bool turnOn) {
 void ledsLoop() {
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
-
-  if (rpm < 100) {
-    Serial.println("ENGINE OFF");
-    enableDisplay(false);
-    stateOfDevices = offAll;
-  }
 
   if (!isnan(rpm)) {
 
@@ -201,8 +211,9 @@ void checkOBD() {
   if (stateOfDevices != offAll)
     while (!OBD2.begin())
       delay(500);
-  else
+  else {
     OBD2.end();
+  }
 }
 
 void buttonListener() {
