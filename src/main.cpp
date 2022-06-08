@@ -276,7 +276,7 @@ void printValue(String title, int pid, int numberOfDigits, int column,
 
     lcd.print(title);
 
-    // Clear value space
+    // Clear values space
     for (int i = 0; i < numberOfDigits + 1 + strlen(units.c_str()); i++)
       lcd.print(" ");
 
