@@ -243,8 +243,8 @@ void printDataToScreen() {
   switch (preset) {
 
   default:
-    printValue("Injection:  ", FUEL_RAIL_GAUGE_PRESSURE, 5, 0, 0);
-    printValue("Intake:       ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 4, 0, 1);
+    printValue("Injection:  ", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
+    printValue("Intake:       ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1);
     printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 2);
     printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
     break;
@@ -257,16 +257,15 @@ void printDataToScreen() {
     break;
 
   case 2:
-    printValue("RPM:    ", ENGINE_RPM, 4, 0, 0);
-    printValue("Speed:  ", VEHICLE_SPEED, 3, 0, 1);
-    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 4, 0, 2);
-    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 4, 0, 3);
+    printValue("RPM:    ", ENGINE_RPM, 0, 0);
+    printValue("Speed:  ", VEHICLE_SPEED, 0, 1);
+    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 0, 2);
+    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 0, 3);
     break;
   }
 }
 
-void printValue(String title, int pid, int numberOfDigits, int column,
-                int row) {
+void printValue(String title, int pid, int column, int row) {
 
   float value = OBD2.pidRead(pid);
   String units = OBD2.pidUnits(pid);
@@ -276,8 +275,8 @@ void printValue(String title, int pid, int numberOfDigits, int column,
 
     lcd.print(title);
 
-    // Clear values space
-    for (int i = 0; i < numberOfDigits + 1 + strlen(units.c_str()); i++)
+    // Clear value spaces
+    for (unsigned int i = 0; i < (20 - strlen(title.c_str())); i++)
       lcd.print(" ");
 
     lcd.setCursor(column + strlen(title.c_str()), row);

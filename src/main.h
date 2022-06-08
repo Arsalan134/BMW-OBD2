@@ -66,7 +66,6 @@ enum StateOfDevices { offAll, onAll, onlyDisplay, onlyLed };
 StateOfDevices stateOfDevices = offAll;
 
 void intro();
-void ledsLoop();
 void shortPressed();
 void longPressed();
 void buttonListener();
@@ -74,7 +73,9 @@ void printDataToScreen();
 void printTemp(String title, int pid, int column, int row);
 void enableDisplay(bool turnOn);
 void switchState(StateOfDevices to);
+
 bool displayLoop(void *);
+void ledsLoop();
 
 /**
  * @brief  Prints values to a display
@@ -84,6 +85,4 @@ bool displayLoop(void *);
  * @param  column: column index
  * @param  row: row index
  */
-void printValue(String title, int pid, int numberOfDigits, int column, int row);
-
-void pride();
+void printValue(String title, int pid, int column, int row);
