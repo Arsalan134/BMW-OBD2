@@ -17,7 +17,7 @@
 
 // LED
 #define NUM_LEDS 9             // Number of LEDS to use
-#define LED_MAX_BRIGHTNESS 200 // 0 - 255
+#define LED_MAX_BRIGHTNESS 255 // 0 - 255
 #define BLINK_DURATION 75      // milliseconds
 
 #define RPM_MIN 800    // Start rpm value for the leds
