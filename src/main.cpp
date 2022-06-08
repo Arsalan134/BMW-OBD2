@@ -2,14 +2,6 @@
 
 bool displayLoop(void *) {
 
-  if (OBD2.begin()) {
-    Serial.println("ENGINE OFF");
-    enableDisplay(false);
-    stateOfDevices = offAll;
-  } else {
-    Serial.println("ENGINE on");
-  }
-
   switch (stateOfDevices) {
   case onAll:
   case onlyDisplay:
@@ -108,6 +100,12 @@ void enableDisplay(bool turnOn) {
 void ledsLoop() {
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
+
+  if (rpm < 100) {
+    Serial.println("ENGINE OFF");
+    enableDisplay(false);
+    stateOfDevices = offAll;
+  }
 
   if (!isnan(rpm)) {
 
