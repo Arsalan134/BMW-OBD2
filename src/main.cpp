@@ -189,6 +189,7 @@ void longPressed() {
 
 void doublePressed() {
   currentBrightnessIndex++;
+
   currentBrightnessIndex %=
       sizeof(ledBrightnesses) / sizeof(typeof(ledBrightnesses[0]));
 
