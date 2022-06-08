@@ -20,6 +20,8 @@ void setup() {
 
   Serial.begin(9600);
 
+  delay(200);
+
   // Display
   lcd.init();
   lcd.clear();
@@ -36,7 +38,6 @@ void setup() {
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
-  delay(200);
   intro();
 
   enableDisplay(false);
@@ -45,7 +46,6 @@ void setup() {
 }
 
 void loop() {
-
   delay(100);
 
   timer.tick();
@@ -61,12 +61,16 @@ void loop() {
   default:
     break;
   }
+
+  if (!OBD2.begin()) {
+    delay(500);
+    Serial.println(" IS WORKING");
+  } else {
+    Serial.println("ENGINE OFF");
+  }
 }
 
 void intro() {
-
-  enableDisplay(true);
-  delay(200);
 
   lcd.clear();
 
