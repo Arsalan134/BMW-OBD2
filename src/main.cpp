@@ -45,12 +45,15 @@ void loop() {
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
   // Check Engine State
-  if (rpm < TURN_OFF_RPM && stateOfDevices != offAll) {
-    switchState(offAll);
-    introPresented = false;
-  } else if (rpm < TURN_OFF_RPM && stateOfDevices == offAll)
-    delay(2000); // Delay program if engine is off
-  else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
+  if (rpm < TURN_OFF_RPM) {
+    if (stateOfDevices != offAll) {
+      switchState(offAll);
+      introPresented = false;
+    } else
+      delay(2000); // Delay programm if engine is off
+
+  } else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll &&
+             !introPresented) {
     delay(100);
     switchState(onlyDisplay);
     delay(100);
