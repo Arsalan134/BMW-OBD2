@@ -24,6 +24,9 @@
 #define RPM_MAX 5000   // End rpm value for the leds
 #define BLINK_RPM 5200 // RPM threshold for blink to start
 
+// Threshold at which arduino considers engine turned off
+#define TURN_OFF_RPM 100
+
 // Display
 char buffer[21];
 
@@ -45,6 +48,7 @@ bool isBlinkingRPMLimitPassed = false;
 
 int preset = 0;
 int numberOfPresets = 3;
+bool introPresented = false;
 
 byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111,
                  0b11111, 0b01110, 0b00100, 0b00000};

@@ -44,15 +44,23 @@ void loop() {
 
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
-  if (rpm < 100) {
+  // Check Engine State
+  if (rpm < TURN_OFF_RPM && stateOfDevices != offAll) {
+    switchState(offAll);
+    introPresented = false;
+  } else if (rpm < TURN_OFF_RPM && stateOfDevices == offAll)
+    delay(2000); // Delay program if engine is off
+  else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
+    delay(100);
+    switchState(onlyDisplay);
+    delay(100);
+    intro();
+    introPresented = true;
     switchState(offAll);
   }
 }
 
 void intro() {
-
-  lcd.backlight();
-  lcd.display();
 
   lcd.clear();
 
@@ -78,6 +86,8 @@ void intro() {
 }
 
 void enableDisplay(bool turnOn) {
+  lcd.clear();
+
   if (turnOn) {
     lcd.display();
     lcd.backlight();
@@ -237,7 +247,7 @@ void printDataToScreen() {
   switch (preset) {
 
   default:
-    printValue("Injection:  ", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
+    printValue("Injection: ", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
     printValue("Intake:       ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1);
     printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 2);
     printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
