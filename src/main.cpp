@@ -38,10 +38,14 @@ void setup() {
 
   intro();
 
+  enableDisplay(false);
+
   timer.every(1000, displayLoop);
 }
 
 void loop() {
+
+  delay(100);
 
   timer.tick();
 
@@ -81,8 +85,6 @@ void intro() {
   delay(2000);
 
   lcd.clear();
-
-  enableDisplay(false);
 }
 
 void enableDisplay(bool turnOn) {
@@ -90,7 +92,6 @@ void enableDisplay(bool turnOn) {
     lcd.display();
     lcd.backlight();
   } else {
-    Serial.println("DISPLAY OFF");
     lcd.noDisplay();
     lcd.noBacklight();
   }

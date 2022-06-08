@@ -62,6 +62,7 @@ auto timer = timer_create_default();
  */
 
 enum StateOfDevices { offAll, onAll, onlyDisplay, onlyLed };
+
 StateOfDevices stateOfDevices = offAll;
 
 void intro();
