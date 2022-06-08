@@ -69,12 +69,12 @@ void intro();
 void ledsLoop();
 void shortPressed();
 void longPressed();
-void checkOBD();
 void buttonListener();
 void printDataToScreen();
 void printTemp(String title, int pid, int column, int row);
 void enableDisplay(bool turnOn);
-void switchState();
+void switchState(StateOfDevices to);
+bool displayLoop(void *);
 
 /**
  * @brief  Prints values to a display
@@ -84,6 +84,6 @@ void switchState();
  * @param  column: column index
  * @param  row: row index
  */
-void printValue(String title, int pid, int column, int row);
+void printValue(String title, int pid, int numberOfDigits, int column, int row);
 
 void pride();

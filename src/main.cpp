@@ -1,31 +1,16 @@
 #include "main.h"
 
-bool displayLoop(void *) {
-
-  switch (stateOfDevices) {
-  case onAll:
-  case onlyDisplay:
-    printDataToScreen();
-    break;
-
-  default:
-    break;
-  }
-
-  return true;
-}
-
 void setup() {
   pinMode(buttonPin, INPUT);
 
-  Serial.begin(9600);
+  // Serial.begin(9600);
 
-  delay(200);
+  // delay(200);
 
   // Display
   lcd.init();
   lcd.clear();
-  lcd.backlight();
+
   lcd.createChar(1, Heart);
   lcd.createChar(2, Degree);
   lcd.clear();
@@ -66,12 +51,14 @@ void loop() {
   int rpm = OBD2.pidRead(ENGINE_RPM);
 
   if (rpm < 100) {
-    enableDisplay(false);
-    stateOfDevices = offAll;
+    switchState(offAll);
   }
 }
 
 void intro() {
+
+  lcd.backlight();
+  lcd.display();
 
   lcd.clear();
 
@@ -143,6 +130,21 @@ void ledsLoop() {
   }
 }
 
+bool displayLoop(void *) {
+
+  switch (stateOfDevices) {
+  case onAll:
+  case onlyDisplay:
+    printDataToScreen();
+    break;
+
+  default:
+    break;
+  }
+
+  return true;
+}
+
 void shortPressed() {
   preset++;
   preset %= numberOfPresets;
@@ -161,51 +163,44 @@ void shortPressed() {
 }
 
 void longPressed() {
-  if (stateOfDevices == offAll)
-    checkOBD();
-
-  switchState();
-}
-
-void switchState() {
   switch (stateOfDevices) {
   case offAll:
-    stateOfDevices = onAll;
-
-    enableDisplay(true);
+    switchState(onAll);
     break;
 
   case onAll:
-    stateOfDevices = onlyLed;
-
-    enableDisplay(false);
+    switchState(onlyLed);
     break;
 
   case onlyLed:
-    stateOfDevices = onlyDisplay;
-
-    enableDisplay(true);
+    switchState(onlyDisplay);
     break;
 
   case onlyDisplay:
-    stateOfDevices = offAll;
-
-    enableDisplay(false);
-    break;
-
-  default:
-    stateOfDevices = onAll;
-    enableDisplay(true);
+    switchState(offAll);
     break;
   }
 }
 
-void checkOBD() {
-  if (stateOfDevices != offAll)
-    while (!OBD2.begin())
-      delay(500);
-  else {
-    OBD2.end();
+void switchState(StateOfDevices to) {
+  stateOfDevices = to;
+
+  switch (to) {
+  case offAll:
+    enableDisplay(false);
+    break;
+
+  case onAll:
+    enableDisplay(true);
+    break;
+
+  case onlyLed:
+    enableDisplay(false);
+    break;
+
+  case onlyDisplay:
+    enableDisplay(true);
+    break;
   }
 }
 
@@ -248,8 +243,8 @@ void printDataToScreen() {
   switch (preset) {
 
   default:
-    printValue("Injection:  ", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
-    printValue("Intake:       ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1);
+    printValue("Injection:  ", FUEL_RAIL_GAUGE_PRESSURE, 5, 0, 0);
+    printValue("Intake:       ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 4, 0, 1);
     printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 2);
     printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
     break;
@@ -262,22 +257,30 @@ void printDataToScreen() {
     break;
 
   case 2:
-    printValue("RPM:    ", ENGINE_RPM, 0, 0);
-    printValue("Speed:  ", VEHICLE_SPEED, 0, 1);
-    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 0, 2);
-    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 0, 3);
+    printValue("RPM:    ", ENGINE_RPM, 4, 0, 0);
+    printValue("Speed:  ", VEHICLE_SPEED, 3, 0, 1);
+    printValue("Load:   ", CALCULATED_ENGINE_LOAD, 4, 0, 2);
+    printValue("Fuel:   ", FUEL_TANK_LEVEL_INPUT, 4, 0, 3);
     break;
   }
 }
 
-void printValue(String title, int pid, int column, int row) {
+void printValue(String title, int pid, int numberOfDigits, int column,
+                int row) {
 
   float value = OBD2.pidRead(pid);
+  String units = OBD2.pidUnits(pid);
 
   if (!isnan(value)) {
     lcd.setCursor(column, row);
 
     lcd.print(title);
+
+    // Clear value space
+    for (int i = 0; i < numberOfDigits + 1 + strlen(units.c_str()); i++)
+      lcd.print(" ");
+
+    lcd.setCursor(column + strlen(title.c_str()), row);
 
     if (roundf(value) == value)
       lcd.print(int(value));
@@ -285,7 +288,7 @@ void printValue(String title, int pid, int column, int row) {
       lcd.print(value);
 
     lcd.print(" ");
-    lcd.print(OBD2.pidUnits(pid));
+    lcd.print(units);
   }
 }
 
