@@ -15,6 +15,8 @@
 // Duration in milliseconds to hold to activate long press
 #define LONG_PRESS_TIME 1000
 
+#define DOUBLE_PRESS_TIME_THRESHOLD 1000
+
 // LED
 #define NUM_LEDS 9             // Number of LEDS to use
 #define LED_MAX_BRIGHTNESS 255 // 0 - 255
@@ -32,12 +34,13 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 CRGB leds[NUM_LEDS];
 
 // Changing Variables
-bool lastState = false;
-bool currentState = false;
+bool buttonWasPressed = false;
+bool buttonIsPressed = false;
 bool isPressing = false;
 bool isLongDetected = false;
 unsigned long pressedTime = 0;
 unsigned long releasedTime = 0;
+bool pressedRecently = false;
 
 bool colorsAreTurnedOn = true;
 unsigned long ledBlinkStartMillis = 0;
@@ -46,6 +49,9 @@ bool isBlinkingRPMLimitPassed = false;
 int preset = 0;
 int numberOfPresets = 3;
 bool introPresented = false;
+
+int ledBrightnesses[] = {5, 50, 150, 255};
+int currentBrightnessIndex = 0;
 
 byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111,
                  0b11111, 0b01110, 0b00100, 0b00000};
@@ -61,6 +67,7 @@ StateOfDevices stateOfDevices = offAll;
 
 void intro();
 void shortPressed();
+void doublePressed();
 void longPressed();
 void buttonListener();
 void printDataToScreen();

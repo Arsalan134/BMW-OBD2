@@ -170,10 +170,6 @@ void shortPressed() {
 void longPressed() {
   switch (stateOfDevices) {
   case offAll:
-    switchState(onAll);
-    break;
-
-  case onAll:
     switchState(onlyLed);
     break;
 
@@ -182,9 +178,21 @@ void longPressed() {
     break;
 
   case onlyDisplay:
+    switchState(onAll);
+    break;
+
+  case onAll:
     switchState(offAll);
     break;
   }
+}
+
+void doublePressed() {
+  currentBrightnessIndex++;
+  currentBrightnessIndex %=
+      sizeof(ledBrightnesses) / sizeof(typeof(ledBrightnesses[0]));
+
+  FastLED.setBrightness(ledBrightnesses[currentBrightnessIndex]);
 }
 
 void switchState(StateOfDevices to) {
@@ -210,23 +218,33 @@ void switchState(StateOfDevices to) {
 }
 
 void buttonListener() {
-  currentState = digitalRead(BUTTON_PIN);
+  buttonIsPressed = !digitalRead(BUTTON_PIN);
 
   // button is pressed
-  if (lastState && !currentState) {
+  if (!buttonWasPressed && buttonIsPressed) {
     pressedTime = millis();
     isPressing = true;
     isLongDetected = false;
 
     // button is released
-  } else if (!lastState && currentState) {
+  } else if (buttonWasPressed && !buttonIsPressed) {
     isPressing = false;
     releasedTime = millis();
-
     long pressDuration = releasedTime - pressedTime;
 
-    if (pressDuration < LONG_PRESS_TIME)
+    if (pressedRecently) {
+      if (pressDuration < LONG_PRESS_TIME)
+        doublePressed();
+    }
+
+    pressedRecently = true;
+
+    if (millis() - releasedTime >= DOUBLE_PRESS_TIME_THRESHOLD &&
+        pressDuration < LONG_PRESS_TIME) {
+      buttonWasPressed = buttonIsPressed; // save the the last state
+      pressedRecently = false;
       shortPressed();
+    }
   }
 
   if (isPressing && !isLongDetected) {
@@ -235,10 +253,9 @@ void buttonListener() {
     if (pressDuration >= LONG_PRESS_TIME) {
       isLongDetected = true;
       longPressed();
+      pressedRecently = false;
     }
   }
-
-  lastState = currentState; // save the the last state
 }
 
 void printDataToScreen() {
