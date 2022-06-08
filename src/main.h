@@ -72,7 +72,7 @@ void checkOBD();
 void buttonListener();
 void printDataToScreen();
 void printTemp(String title, int pid, int column, int row);
-
+void enableDisplay(bool turnOn);
 void switchState();
 
 /**

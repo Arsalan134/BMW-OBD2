@@ -43,8 +43,6 @@ void setup() {
 
 void loop() {
 
-  // delay(200);
-
   timer.tick();
 
   buttonListener();
