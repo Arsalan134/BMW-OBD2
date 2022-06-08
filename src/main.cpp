@@ -238,9 +238,9 @@ void printDataToScreen() {
   switch (preset) {
 
   default:
-    printValue("Injection:", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
-    printValue("Intake:    ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1);
-    printTemp("Intake Temp: ", AIR_INTAKE_TEMPERATURE, 0, 2);
+    printValue("Injection:  ", FUEL_RAIL_GAUGE_PRESSURE, 0, 0);
+    printValue("Intake:       ", INTAKE_MANIFOLD_ABSOLUTE_PRESSURE, 0, 1);
+    printTemp("Intake Temp:  ", AIR_INTAKE_TEMPERATURE, 0, 2);
     printTemp("Coolant Temp: ", ENGINE_COOLANT_TEMPERATURE, 0, 3);
     break;
 
