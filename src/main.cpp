@@ -43,7 +43,7 @@ void setup() {
 
 void loop() {
 
-  delay(200);
+  // delay(200);
 
   timer.tick();
 
@@ -90,6 +90,7 @@ void enableDisplay(bool turnOn) {
     lcd.display();
     lcd.backlight();
   } else {
+    Serial.println("DISPLAY OFF");
     lcd.noDisplay();
     lcd.noBacklight();
   }
