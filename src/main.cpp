@@ -1,5 +1,20 @@
 #include "main.h"
 
+bool displayLoop(void *) {
+
+  switch (stateOfDevices) {
+  case onAll:
+  case onlyDisplay:
+    printDataToScreen();
+    break;
+
+  default:
+    break;
+  }
+
+  return true;
+}
+
 void setup() {
   pinMode(buttonPin, INPUT);
 
@@ -24,21 +39,6 @@ void setup() {
   intro();
 
   timer.every(200, displayLoop);
-}
-
-bool displayLoop(void *) {
-
-  switch (stateOfDevices) {
-  case onAll:
-  case onlyDisplay:
-    printDataToScreen();
-    break;
-
-  default:
-    break;
-  }
-
-  return true;
 }
 
 void loop() {
@@ -156,16 +156,16 @@ void longPressed() {
 
 void switchState() {
   switch (stateOfDevices) {
-  case onAll:
-    stateOfDevices = offAll;
-
-    enableDisplay(false);
-    break;
-
   case offAll:
-    stateOfDevices = onlyLed;
+    stateOfDevices = onAll;
 
     enableDisplay(true);
+    break;
+
+  case onAll:
+    stateOfDevices = onlyLed;
+
+    enableDisplay(false);
     break;
 
   case onlyLed:

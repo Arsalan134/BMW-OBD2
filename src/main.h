@@ -55,14 +55,14 @@ byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
 auto timer = timer_create_default();
 
 /*
- *0 off all
+ * 0 off all
  * 1 led on
  * 2 display on
  * 3 on all
  */
 
-enum StateOfDevices { onAll, offAll, onlyDisplay, onlyLed };
-StateOfDevices stateOfDevices = onAll;
+enum StateOfDevices { offAll, onAll, onlyDisplay, onlyLed };
+StateOfDevices stateOfDevices = offAll;
 
 void intro();
 void ledsLoop();
@@ -72,7 +72,7 @@ void checkOBD();
 void buttonListener();
 void printDataToScreen();
 void printTemp(String title, int pid, int column, int row);
-void displayLoop();
+
 void switchState();
 
 /**
