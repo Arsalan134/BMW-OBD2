@@ -175,7 +175,7 @@ void switchState() {
     break;
 
   case onlyDisplay:
-    stateOfDevices = onAll;
+    stateOfDevices = offAll;
 
     enableDisplay(true);
     break;
