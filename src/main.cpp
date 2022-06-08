@@ -2,6 +2,14 @@
 
 bool displayLoop(void *) {
 
+  if (OBD2.begin()) {
+    Serial.println("ENGINE OFF");
+    enableDisplay(false);
+    stateOfDevices = offAll;
+  } else {
+    Serial.println("ENGINE on");
+  }
+
   switch (stateOfDevices) {
   case onAll:
   case onlyDisplay:
@@ -46,7 +54,6 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
 
   timer.tick();
 
@@ -60,13 +67,6 @@ void loop() {
 
   default:
     break;
-  }
-
-  if (!OBD2.begin()) {
-    delay(500);
-    Serial.println(" IS WORKING");
-  } else {
-    Serial.println("ENGINE OFF");
   }
 }
 
