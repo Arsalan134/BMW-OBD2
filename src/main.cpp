@@ -106,7 +106,7 @@ void ledsLoop() {
     int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
     level = constrain(level, 0, NUM_LEDS);
 
-    fill_gradient_RGB(leds, NUM_LEDS, CRGB{255, 255, 0}, CRGB{255, 0, 255});
+    fill_gradient_RGB(leds, NUM_LEDS, CRGB{255, 255, 0}, CRGB{255, 0, 0});
 
     for (int i = level; i < NUM_LEDS; i++)
       leds[i] = CRGB::Black;
@@ -267,28 +267,36 @@ void printValue(String title, int pid, int column, int row) {
   if (!isnan(value)) {
     lcd.setCursor(column, row);
 
-    if (roundf(value) == value) {
-      int value = int(value);
-      Serial.println(title);
-      Serial.print("int : ");
-      Serial.println(value);
-      Serial.println();
+    // if (roundf(value) == value) {
+    //   int value = int(value);
+    //   Serial.println(title);
+    //   Serial.print("int : ");
+    //   Serial.println(value);
+    //   Serial.println();
 
-      sprintf(buffer, "%s%5d", title.c_str(), value);
-    } else {
-      Serial.println(title);
-      Serial.print("float: ");
-      Serial.println(value);
-      Serial.println();
+    //   sprintf(buffer, "%s%5d", title.c_str(), value);
 
-      sprintf(buffer, "%s%5.2f", title.c_str(), value);
-    }
+    // } else {
+    //   Serial.println(title);
+    //   Serial.print("float: ");
+    //   Serial.println(value);
+    //   Serial.println();
 
-    lcd.print(buffer);
+    // rpm int 0
+    // speed int 0
+    // load fuel float 465
+
+    // sprintf(buffer, "%s%5.2f", title.c_str(), value);
+    // lcd.print(buffer);
+
+    lcd.print(title);
+    lcd.print(value);
+    // }
+
+    // lcd.print(buffer);
 
     lcd.print(" ");
     lcd.print(OBD2.pidUnits(pid));
-
   } else {
     Serial.println("Is nan!!!");
   }
