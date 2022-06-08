@@ -36,6 +36,7 @@ void setup() {
   FastLED.addLeds<WS2813, LedPin, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
+  delay(200);
   intro();
 
   enableDisplay(false);
@@ -63,6 +64,9 @@ void loop() {
 }
 
 void intro() {
+
+  enableDisplay(true);
+  delay(200);
 
   lcd.clear();
 
