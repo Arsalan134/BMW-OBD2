@@ -269,6 +269,9 @@ void printValue(String title, int pid, int column, int row) {
 
     if (roundf(value) == value) {
       int value = int(value);
+      Serial.print("int : ");
+      Serial.println(value);
+
       sprintf(buffer, "%s%5d", title.c_str(), value);
     } else {
       Serial.print("float: ");
