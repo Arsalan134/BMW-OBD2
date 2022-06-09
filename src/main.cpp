@@ -14,7 +14,7 @@ void setup() {
   FastLED.addLeds<WS2813, LED_PIN, RGB>(leds, NUM_LEDS, 0);
   FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
-  intro();
+  // intro();
 
   switchState(stateOfDevices);
 
@@ -52,9 +52,9 @@ void loop() {
 
   } else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll &&
              !introPresented) {
-    delay(100);
+    // delay(100);
     switchState(onlyDisplay);
-    delay(100);
+    delay(200);
     intro();
     introPresented = true;
     switchState(offAll);
@@ -233,15 +233,19 @@ void buttonListener() {
     releasedTime = millis();
     long pressDuration = releasedTime - pressedTime;
 
-    if (millis() - releasedTime <= DOUBLE_PRESS_TIME_THRESHOLD) {
-      if (pressDuration < LONG_PRESS_TIME) {
+    if (pressDuration < LONG_PRESS_TIME)
+      if (pressedRecently) {
         doublePressed();
         buttonWasPressed = buttonIsPressed;
+      } else if (millis() - releasedTime >= DOUBLE_PRESS_TIME_THRESHOLD) {
+        shortPressed();
+        buttonWasPressed = buttonIsPressed;
       }
-    } else if (pressDuration < LONG_PRESS_TIME) {
-      shortPressed();
-      buttonWasPressed = buttonIsPressed;
-    }
+
+    if (millis() - releasedTime < DOUBLE_PRESS_TIME_THRESHOLD)
+      pressedRecently = true;
+    else
+      pressedRecently = false;
   }
 
   if (isPressing && !isLongDetected) {
