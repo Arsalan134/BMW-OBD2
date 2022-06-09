@@ -233,19 +233,18 @@ void buttonListener() {
     releasedTime = millis();
     long pressDuration = releasedTime - pressedTime;
 
-    if (pressedRecently) {
-      if (pressDuration < LONG_PRESS_TIME)
-        doublePressed();
-    }
+    // if (pressedRecently) {
+    if (pressDuration < LONG_PRESS_TIME)
+      // doublePressed();
+      // }
 
-    pressedRecently = true;
+      // pressedRecently = true;
 
-    if (millis() - releasedTime >= DOUBLE_PRESS_TIME_THRESHOLD &&
-        pressDuration < LONG_PRESS_TIME) {
-      buttonWasPressed = buttonIsPressed; // save the the last state
-      pressedRecently = false;
-      shortPressed();
-    }
+      if (pressDuration < LONG_PRESS_TIME) {
+        // save the the last state
+        // pressedRecently = false;
+        shortPressed();
+      }
   }
 
   if (isPressing && !isLongDetected) {
@@ -257,6 +256,8 @@ void buttonListener() {
       pressedRecently = false;
     }
   }
+
+  buttonWasPressed = buttonIsPressed;
 }
 
 void printDataToScreen() {
