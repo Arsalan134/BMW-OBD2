@@ -54,7 +54,7 @@ void loop() {
              !introPresented) {
     // delay(100);
     switchState(onlyDisplay);
-    delay(200);
+    delay(500);
     intro();
     introPresented = true;
     switchState(offAll);
