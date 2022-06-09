@@ -234,17 +234,17 @@ void buttonListener() {
     long pressDuration = releasedTime - pressedTime;
 
     // if (pressedRecently) {
-    if (pressDuration < LONG_PRESS_TIME)
-      // doublePressed();
-      // }
+    // if (pressDuration < LONG_PRESS_TIME)
+    // doublePressed();
+    // }
 
-      // pressedRecently = true;
+    // pressedRecently = true;
 
-      if (pressDuration < LONG_PRESS_TIME) {
-        // save the the last state
-        // pressedRecently = false;
-        shortPressed();
-      }
+    if (pressDuration < LONG_PRESS_TIME) {
+      // save the the last state
+      // pressedRecently = false;
+      shortPressed();
+    }
   }
 
   if (isPressing && !isLongDetected) {
