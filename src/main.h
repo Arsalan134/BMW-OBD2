@@ -40,7 +40,6 @@ bool isPressing = false;
 bool isLongDetected = false;
 unsigned long pressedTime = 0;
 unsigned long releasedTime = 0;
-bool pressedRecently = false;
 
 bool colorsAreTurnedOn = true;
 unsigned long ledBlinkStartMillis = 0;
