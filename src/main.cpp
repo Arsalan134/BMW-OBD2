@@ -34,8 +34,6 @@ void loop() {
     break;
 
   default:
-    FastLED.clear();
-    FastLED.show();
     break;
   }
 
@@ -47,6 +45,8 @@ void loop() {
       delay(500);
       switchState(offAll);
       introPresented = false;
+      OBD2.end(); // ================================ Check what happens
+                  //  if end connection and read rpm
     } else
       delay(1000); // Delay programm if engine is off
   else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
@@ -55,6 +55,8 @@ void loop() {
     intro();
     introPresented = true;
     switchState(offAll);
+    while (!OBD2.begin())
+      delay(500);
   }
 }
 
@@ -230,7 +232,7 @@ void buttonListener() {
     releasedTime = millis();
     long pressDuration = releasedTime - pressedTime;
 
-    if (pressDuration < LONG_PRESS_TIME)
+    if (pressDuration < LONG_PRESS_TIME) {
       if (pressedRecently) {
         doublePressed();
         buttonWasPressed = buttonIsPressed;
@@ -238,6 +240,7 @@ void buttonListener() {
         shortPressed();
         buttonWasPressed = buttonIsPressed;
       }
+    }
 
     if (millis() - releasedTime < DOUBLE_PRESS_TIME_THRESHOLD)
       pressedRecently = true;
