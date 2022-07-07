@@ -35,15 +35,15 @@ void loop() {
     // Check Engine State
     if (rpm < TURN_OFF_RPM) {
         if (stateOfDevices != offAll) {
-            Serial.println("Engine is just turned off");
+            Serial.println("Engine is just turned off and display and led are on");
             delay(1000);
             switchState(offAll);
             // introPresented = false;
-            // OBD2.end();  // ================================
+            OBD2.end();  // ================================
             // Check what happens if end connection and read rpm
         } else {
             // Delay programm if engine is off
-            Serial.println("Engine is off");
+            Serial.println("Engine is off and leds are off");
             delay(1000);
         }
     } else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
