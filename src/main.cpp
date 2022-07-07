@@ -20,6 +20,8 @@ void setup() {
     switchState(stateOfDevices);
 
     timer.every(3000, displayLoop);
+
+    Serial.println("Setup is DONE !!!");
 }
 
 void loop() {
