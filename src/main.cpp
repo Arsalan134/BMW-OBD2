@@ -37,27 +37,27 @@ void loop() {
             break;
     }
 
-    int rpm = OBD2.pidRead(ENGINE_RPM);
+    // int rpm = OBD2.pidRead(ENGINE_RPM);
 
     // Check Engine State
-    if (rpm < TURN_OFF_RPM)
-        if (stateOfDevices != offAll) {
-            delay(500);
-            switchState(offAll);
-            introPresented = false;
-            OBD2.end();  // ================================
-            // Check what happens if end connection and read rpm
-        } else
-            delay(1000);  // Delay programm if engine is off
-    else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
-        switchState(onAll);
-        delay(500);
-        intro();
-        introPresented = true;
-        switchState(offAll);
-        while (!OBD2.begin())
-            delay(500);
-    }
+    // if (rpm < TURN_OFF_RPM)
+    //     if (stateOfDevices != offAll) {
+    //         delay(500);
+    //         switchState(offAll);
+    //         introPresented = false;
+    //         OBD2.end();  // ================================
+    //         // Check what happens if end connection and read rpm
+    //     } else
+    //         delay(1000);  // Delay programm if engine is off
+    // else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
+    //     switchState(onAll);
+    //     delay(500);
+    //     intro();
+    //     introPresented = true;
+    //     switchState(offAll);
+    //     while (!OBD2.begin())
+    //         delay(500);
+    // }
 }
 
 void intro() {
@@ -233,7 +233,7 @@ void buttonListener() {
             buttonWasPressed = buttonIsPressed;
             // } else if (millis() - releasedTime >= DOUBLE_PRESS_TIME_THRESHOLD) {
             shortPressed();
-            buttonWasPressed = buttonIsPressed;
+            // buttonWasPressed = buttonIsPressed;
             // }
         }
 
