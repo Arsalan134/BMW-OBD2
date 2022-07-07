@@ -9,8 +9,8 @@ void setup() {
     lcd.createChar(1, Heart);
     lcd.createChar(2, Degree);
 
-    while (!OBD2.begin())
-        delay(200);
+    // while (!OBD2.begin())
+    // delay(200);
 
     FastLED.addLeds<WS2813, LED_PIN, RGB>(leds, NUM_LEDS, 0);
     FastLED.setBrightness(LED_MAX_BRIGHTNESS);
