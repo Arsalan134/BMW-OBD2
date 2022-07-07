@@ -1,7 +1,7 @@
 #include "main.h"
 
 void setup() {
-    Serial.begin(115200);
+    // Serial.begin(115200);
     pinMode(BUTTON_PIN, INPUT);
 
     lcd.init();
@@ -15,13 +15,13 @@ void setup() {
     FastLED.addLeds<WS2813, LED_PIN, RGB>(leds, NUM_LEDS, 0);
     FastLED.setBrightness(LED_MAX_BRIGHTNESS);
 
-    // intro();
+    intro();
 
     switchState(stateOfDevices);
 
     timer.every(3000, displayLoop);
 
-    Serial.println("Setup is DONE !!!");
+    // Serial.println("Setup is DONE !!!");
 }
 
 void loop() {
@@ -37,7 +37,7 @@ void loop() {
     // Check Engine State
     if (rpm < TURN_OFF_RPM) {
         if (stateOfDevices != offAll) {
-            Serial.println("Engine is just turned off and display and led are on");
+            // Serial.println("Engine is just turned off and display and led are on");
             delay(1000);
             switchState(offAll);
             // introPresented = false;
@@ -45,14 +45,14 @@ void loop() {
             // Check what happens if end connection and read rpm
         } else {
             // Delay programm if engine is off
-            Serial.println("Engine is off and leds are off");
+            // Serial.println("Engine is off and leds are off");
             delay(1000);
         }
     } else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
-        Serial.println("Engine is on");
+        // Serial.println("Engine is on");
 
         // switchState(onAll);
-        delay(1000);
+        // delay(1000);
         // intro();
         // introPresented = true;
         // switchState(offAll);

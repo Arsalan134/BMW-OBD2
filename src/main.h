@@ -22,9 +22,9 @@
 #define LED_MAX_BRIGHTNESS 255  // 0 - 255
 #define BLINK_DURATION 75       // milliseconds
 
-#define RPM_MIN 800     // Start rpm value for the leds
-#define RPM_MAX 1200    // End rpm value for the leds
-#define BLINK_RPM 1300  // RPM threshold for blink to start
+#define RPM_MIN 3000    // Start rpm value for the leds 3000
+#define RPM_MAX 5000    // End rpm value for the leds 5000
+#define BLINK_RPM 5200  // RPM threshold for blink to start 5200
 
 // Threshold at which arduino considers engine turned off
 #define TURN_OFF_RPM 100
