@@ -18,13 +18,13 @@
 #define DOUBLE_PRESS_TIME_THRESHOLD 1000
 
 // LED
-#define NUM_LEDS 9             // Number of LEDS to use
-#define LED_MAX_BRIGHTNESS 255 // 0 - 255
-#define BLINK_DURATION 75      // milliseconds
+#define NUM_LEDS 9              // Number of LEDS to use
+#define LED_MAX_BRIGHTNESS 255  // 0 - 255
+#define BLINK_DURATION 75       // milliseconds
 
-#define RPM_MIN 3000   // Start rpm value for the leds
-#define RPM_MAX 5000   // End rpm value for the leds
-#define BLINK_RPM 5200 // RPM threshold for blink to start
+#define RPM_MIN 800     // Start rpm value for the leds
+#define RPM_MAX 1200    // End rpm value for the leds
+#define BLINK_RPM 1300  // RPM threshold for blink to start
 
 // Threshold at which arduino considers engine turned off
 #define TURN_OFF_RPM 100
@@ -53,15 +53,14 @@ bool introPresented = false;
 int ledBrightnesses[] = {5, 50, 150, 255};
 int currentBrightnessIndex = 0;
 
-byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111,
-                 0b11111, 0b01110, 0b00100, 0b00000};
+byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111, 0b11111, 0b01110, 0b00100, 0b00000};
 
-byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100,
-                  0b00000, 0b00000, 0b00000, 0b00000};
+byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100, 0b00000, 0b00000, 0b00000, 0b00000};
 
 auto timer = timer_create_default();
 
-enum StateOfDevices { offAll, onlyLed, onAll, onlyDisplay };
+enum StateOfDevices { offAll, onAll };
+// onlyLed, onlyDisplay
 
 StateOfDevices stateOfDevices = offAll;
 
@@ -75,7 +74,7 @@ void printTemp(String title, int pid, int column, int row);
 void enableDisplay(bool turnOn);
 void switchState(StateOfDevices to);
 
-bool displayLoop(void *);
+bool displayLoop(void*);
 void ledsLoop();
 
 /**
