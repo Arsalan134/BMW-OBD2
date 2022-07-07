@@ -27,37 +27,36 @@ void loop() {
 
     buttonListener();
 
-    switch (stateOfDevices) {
-        case onAll:
-            // case onlyLed:
-            ledsLoop();
-            break;
+    if (stateOfDevices == onAll)
+        ledsLoop();
 
-        default:
-            break;
-    }
-
-    // int rpm = OBD2.pidRead(ENGINE_RPM);
+    int rpm = OBD2.pidRead(ENGINE_RPM);
 
     // Check Engine State
-    // if (rpm < TURN_OFF_RPM)
-    //     if (stateOfDevices != offAll) {
-    //         delay(500);
-    //         switchState(offAll);
-    //         introPresented = false;
-    //         OBD2.end();  // ================================
-    //         // Check what happens if end connection and read rpm
-    //     } else
-    //         delay(1000);  // Delay programm if engine is off
-    // else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
-    //     switchState(onAll);
-    //     delay(500);
-    //     intro();
-    //     introPresented = true;
-    //     switchState(offAll);
-    //     while (!OBD2.begin())
-    //         delay(500);
-    // }
+    if (rpm < TURN_OFF_RPM) {
+        if (stateOfDevices != offAll) {
+            Serial.println("Engine is just turned off");
+            delay(500);
+            switchState(offAll);
+            introPresented = false;
+            OBD2.end();  // ================================
+            // Check what happens if end connection and read rpm
+        } else {
+            // Delay programm if engine is off
+            Serial.println("Engine is off");
+            delay(1000);
+        }
+    } else if (rpm > TURN_OFF_RPM && stateOfDevices == offAll && !introPresented) {
+        Serial.println("Engine is on");
+
+        // switchState(onAll);
+        delay(500);
+        // intro();
+        // introPresented = true;
+        // switchState(offAll);
+        // while (!OBD2.begin())
+        // delay(200);
+    }
 }
 
 void intro() {
@@ -134,7 +133,6 @@ void ledsLoop() {
 bool displayLoop(void*) {
     switch (stateOfDevices) {
         case onAll:
-            // case onlyDisplay:
             printDataToScreen();
             break;
 
@@ -168,26 +166,10 @@ void longPressed() {
             switchState(onAll);
             break;
 
-            // case onlyLed:
-            // switchState(onlyDisplay);
-            // break;
-
-            // case onlyDisplay:
-            // switchState(onAll);
-            // break;
-
         case onAll:
             switchState(offAll);
             break;
     }
-}
-
-void doublePressed() {
-    currentBrightnessIndex++;
-
-    currentBrightnessIndex %= sizeof(ledBrightnesses) / sizeof(typeof(ledBrightnesses[0]));
-
-    FastLED.setBrightness(ledBrightnesses[currentBrightnessIndex]);
 }
 
 void switchState(StateOfDevices to) {

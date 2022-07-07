@@ -60,7 +60,6 @@ byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100, 0b00000, 0b00000, 0b00000,
 auto timer = timer_create_default();
 
 enum StateOfDevices { offAll, onAll };
-// onlyLed, onlyDisplay
 
 StateOfDevices stateOfDevices = offAll;
 
