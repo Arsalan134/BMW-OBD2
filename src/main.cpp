@@ -1,6 +1,7 @@
 #include "main.h"
 
 void setup() {
+    Serial.begin(115200);
     pinMode(BUTTON_PIN, INPUT);
 
     lcd.init();
@@ -227,19 +228,19 @@ void buttonListener() {
         long pressDuration = releasedTime - pressedTime;
 
         if (pressDuration < LONG_PRESS_TIME) {
-            if (pressedRecently) {
-                doublePressed();
-                buttonWasPressed = buttonIsPressed;
-            } else if (millis() - releasedTime >= DOUBLE_PRESS_TIME_THRESHOLD) {
-                shortPressed();
-                buttonWasPressed = buttonIsPressed;
-            }
+            // if (pressedRecently) {
+            // doublePressed();
+            buttonWasPressed = buttonIsPressed;
+            // } else if (millis() - releasedTime >= DOUBLE_PRESS_TIME_THRESHOLD) {
+            shortPressed();
+            buttonWasPressed = buttonIsPressed;
+            // }
         }
 
-        if (millis() - releasedTime < DOUBLE_PRESS_TIME_THRESHOLD)
-            pressedRecently = true;
-        else
-            pressedRecently = false;
+        // if (millis() - releasedTime < DOUBLE_PRESS_TIME_THRESHOLD)
+        //     pressedRecently = true;
+        // else
+        //     pressedRecently = false;
     }
 
     if (isPressing && !isLongDetected) {
