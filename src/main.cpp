@@ -165,7 +165,7 @@ void longPressed() {
     switch (stateOfDevices) {
         case offAll:
             switchState(onAll);
-            // break;
+            break;
 
             // case onlyLed:
             // switchState(onlyDisplay);
