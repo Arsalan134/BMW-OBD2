@@ -3,7 +3,7 @@
 Reading data from BMW OBD2 port and displaying it in user-friendly format
 
 
-[![Watch the video](/rpm.mp4)](/rpm.mp4)
+[![Watch the video](rpm.mp4)](rpm.mp4)
 
 ## Authors
 
