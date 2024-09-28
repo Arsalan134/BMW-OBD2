@@ -1,11 +1,7 @@
 #include <Arduino.h>
-
 #include <CAN.h>
 #include <FastLED.h>
-#include <LiquidCrystal_I2C.h>
 #include <OBD2.h>
-#include <Wire.h>
-#include <arduino-timer.h>
 
 // Pins
 #define LED_PIN 3
@@ -30,7 +26,6 @@
 #define TURN_OFF_RPM 100
 
 // Objects
-LiquidCrystal_I2C lcd(0x27, 20, 4);
 CRGB leds[NUM_LEDS];
 
 // Changing Variables
@@ -46,41 +41,11 @@ bool colorsAreTurnedOn = true;
 unsigned long ledBlinkStartMillis = 0;
 bool isBlinkingRPMLimitPassed = false;
 
-int preset = 0;
-int numberOfPresets = 3;
-bool introPresented = false;
-
 int ledBrightnesses[] = {5, 50, 150, 255};
-int currentBrightnessIndex = 0;
+int currentBrightnessIndex = 1;
 
-byte Heart[8] = {0b00000, 0b01010, 0b11111, 0b11111, 0b11111, 0b01110, 0b00100, 0b00000};
-
-byte Degree[8] = {0b01100, 0b10010, 0b10010, 0b01100, 0b00000, 0b00000, 0b00000, 0b00000};
-
-auto timer = timer_create_default();
-
-enum StateOfDevices { offAll, onAll };
-
-StateOfDevices stateOfDevices = offAll;
-
-void intro();
 void shortPressed();
 void doublePressed();
 void longPressed();
 void buttonListener();
-void printDataToScreen();
-void printTemp(String title, int pid, int column, int row);
-void enableDisplay(bool turnOn);
-void switchState(StateOfDevices to);
-
-bool displayLoop(void*);
 void ledsLoop();
-
-/**
- * @brief  Prints values to a display
- * @param  title: Text to display on screen
- * @param  pid: PID from OBD2 protocol
- * @param  column: column index
- * @param  row: row index
- */
-void printValue(String title, int pid, int column, int row);
