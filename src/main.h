@@ -63,3 +63,4 @@ void doublePressed();
 void longPressed();
 void buttonListener();
 void ledsLoop();
+void rainbow();
