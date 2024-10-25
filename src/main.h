@@ -16,7 +16,6 @@
 #define isTesting
 // ----------------------------------------------------
 
-// LED
 #ifdef isTesting
 // --------------------------- Test Environment ---------------------------------------
 #define NUM_LEDS 9         // Number of LEDS to use
