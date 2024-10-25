@@ -28,7 +28,7 @@ void ledsLoop() {
       leds[i] = CRGB::Black;
 
     // Blink
-    if (rpm >= BLINK_RPM) {
+    if (rpm >= BLINK_RPM_THRESHOLD) {
       if (!isBlinkingRPMLimitPassed) {
         isBlinkingRPMLimitPassed = true;
         ledBlinkStartMillis = millis();
