@@ -21,10 +21,13 @@ void loop() {
   FastLED.show();
 }
 
-void ledsLoop() {
-  int rpm = OBD2.pidRead(ENGINE_RPM);
+int rpm = 0;
 
-  Serial.println(rpm);
+void ledsLoop() {
+  rpm = OBD2.pidRead(ENGINE_RPM);
+
+  if (!isnan(rpm))
+    Serial.println(rpm);
 
   // if (!isnan(rpm)) {
   //   int level = map(rpm, RPM_MIN, RPM_MAX, 0, NUM_LEDS);
