@@ -9,7 +9,8 @@ void setup() {
     delay(200);
 
   FastLED.addLeds<WS2813, LED_PIN, RGB>(leds, NUM_LEDS, 0);
-  FastLED.setBrightness(ledBrightnesses[currentBrightnessIndex]);
+  // FastLED.setBrightness(ledBrightnesses[currentBrightnessIndex]);
+  FastLED.setBrightness(250);
 }
 
 void loop() {
