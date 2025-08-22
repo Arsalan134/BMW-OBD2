@@ -31,7 +31,7 @@ Ever wanted to see your engine's RPM in real-time with a cool LED strip? This pr
 
 ### 🎬 **See It In Action!**
 
-https://github.com/user-attachments/assets/your-video-id/bmw_rpm_demo.mp4
+https://github.com/user-attachments/assets/bmw_rpm.mp4
 
 *Watch your BMW's engine come alive with real-time RPM visualization!*
 
