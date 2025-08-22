@@ -8,19 +8,6 @@
 [![FastLED](https://img.shields.io/badge/LED-FastLED-brightgreen.svg)](https://fastled.io/)
 [![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/Arsalan134/BMW-OBD2)
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for full details.
-
-### What does this mean?
-- ✅ **Commercial Use** - You can use this code in commercial projects
-- ✅ **Modification** - You can modify and improve the code
-- ✅ **Distribution** - You can share and redistribute the code
-- ✅ **Private Use** - You can use it for personal projects
-- ℹ️ **Attribution Required** - Just include the original license notice
-
-The MIT License is one of the most permissive open-source licenses, making it easy for others to use and contribute to this project!
- 
-
-
 **Transform your BMW's RPM data into a mesmerizing LED light show!**
 
 This Arduino-based project reads real-time RPM data from your BMW's OBD2 port and visualizes it using a stunning WS2813 RGB LED strip. Watch as your engine's heartbeat comes to life with dynamic colors, smooth gradients, and warning blinks at redline!
@@ -179,9 +166,18 @@ Feel free to contribute to this project! Here's how:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## � License
+## 📄 License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for full details.
+
+### What does this mean?
+- ✅ **Commercial Use** - You can use this code in commercial projects
+- ✅ **Modification** - You can modify and improve the code
+- ✅ **Distribution** - You can share and redistribute the code
+- ✅ **Private Use** - You can use it for personal projects
+- ℹ️ **Attribution Required** - Just include the original license notice
+
+The MIT License is one of the most permissive open-source licenses, making it easy for others to use and contribute to this project!
 
 ## 👨‍💻 Author
 
