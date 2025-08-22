@@ -9,7 +9,7 @@
 
 *Transform your car's RPM data into a stunning visual experience! 🌈*
 
-[🚀 Features](#-features) • [� Demo](#-demo) • [�🔧 Installation](#-installation) • [⚙️ Configuration](#-configuration) • [🤝 Contributing](#-contributing)
+[🚀 Features](#-features) • [📷 Demo](#-demo) • [🔧 Installation](#-installation) • [⚙️ Configuration](#-configuration) • [🤝 Contributing](#-contributing)
 
 </div>
 
