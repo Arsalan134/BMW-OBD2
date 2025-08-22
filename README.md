@@ -1,7 +1,7 @@
 # 🏎️ BMW OBD2 RGB Tachometer 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://## 📄 License
+[![Platform](https://img.s## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for full details.
 
@@ -12,8 +12,15 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - ✅ **Private Use** - You can use it for personal projects
 - ℹ️ **Attribution Required** - Just include the original license notice
 
-The MIT License is one of the most permissive open-source licenses, making it easy for others to use and contribute to this project!.shields.io/badge/Platform-Arduino-blue.svg)](https://www.arduino.cc/)
+The MIT License is one of the most permissive open-source licenses, making it easy for others to use and contribute to this project!
+
+## 👨‍💻 Authors.io/badge/Platform-Arduino-blue.svg)](https://www.arduino.cc/)
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-Compatible-orange.svg)](https://platformio.org/)
+[![C++](https://img.shields.io/badge/Language-C%2B%2B-blue.svg)](https://isocpp.org/)
+[![BMW](https://img.shields.io/badge/Vehicle-BMW-0066CC.svg)](https://www.bmw.com/)
+[![OBD2](https://img.shields.io/badge/Protocol-OBD2-green.svg)](https://en.wikipedia.org/wiki/On-board_diagnostics)
+[![FastLED](https://img.shields.io/badge/LED-FastLED-brightgreen.svg)](https://fastled.io/)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/Arsalan134/BMW-OBD2)
 
 **Transform your BMW's RPM data into a mesmerizing LED light show!**
 
