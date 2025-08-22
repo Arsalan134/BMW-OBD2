@@ -9,7 +9,7 @@
 
 *Transform your car's RPM data into a stunning visual experience! 🌈*
 
-[🚀 Features](#-features) • [🔧 Installation](#-installation) • [📹 Demo](#-demo) • [⚙️ Configuration](#️-configuration) • [🤝 Contributing](#-contributing)
+[🚀 Features](#-features) • [� Demo](#-demo) • [�🔧 Installation](#-installation) • [⚙️ Configuration](#-configuration) • [🤝 Contributing](#-contributing)
 
 </div>
 
@@ -27,7 +27,31 @@ Ever wanted to see your engine's RPM in real-time with a cool LED strip? This pr
 
 ---
 
-## ✨ Features
+## 📹 Demo
+
+### 🎬 **See It In Action!**
+
+https://github.com/user-attachments/assets/your-video-id/bmw_rpm_demo.mp4
+
+*Watch your BMW's engine come alive with real-time RPM visualization!*
+
+### 🌈 **What You'll See:**
+- **Smooth Color Transitions**: Yellow to red gradient based on RPM
+- **Real-time Response**: Instant LED updates as engine speed changes
+- **Warning System**: Dramatic red blinking at high RPM
+- **Rainbow Standby**: Beautiful flowing colors when engine is off
+
+### 📊 **Performance Zones:**
+```
+🟡 Idle Zone (700-1500 RPM)    → Yellow/Green LEDs
+🟠 Cruise Zone (1500-3000 RPM) → Orange LEDs  
+🔴 Power Zone (3000-5000 RPM)  → Red LEDs
+⚠️ Danger Zone (5000+ RPM)     → Blinking Red Warning!
+```
+
+---
+
+## 🚀 Features
 
 - **🌈 Real-time RPM Visualization**: Dynamic LED strip that fills up based on engine RPM
 - **⚠️ Redline Warning**: Aggressive blinking when RPM exceeds safe limits
@@ -35,7 +59,9 @@ Ever wanted to see your engine's RPM in real-time with a cool LED strip? This pr
 - **🎯 BMW Optimized**: Pre-configured RPM ranges for BMW engines
 - **🔧 Dual Environment**: Test mode for bench testing without a running engine
 
-## 🛠️ Hardware Requirements
+## � Installation
+
+### �🛠️ Hardware Requirements
 
 | Component | Specification | Purpose |
 |-----------|---------------|---------|
@@ -48,7 +74,7 @@ Ever wanted to see your engine's RPM in real-time with a cool LED strip? This pr
 ## 🔌 Wiring Diagram
 
 ```
-Arduino Uno     →    Component
+Arduino Uno    →    Component
 Pin 3          →    LED Strip Data (WS2813)
 Pin 7          →    Button (with 10kΩ pull-up)
 5V             →    LED Strip VCC
@@ -126,9 +152,9 @@ When the engine is off or RPM is below threshold, enjoy a mesmerizing rainbow pa
 - **Red Zone**: High RPM - Maximum performance
 - **Blinking Red**: Danger zone - Protect your engine!
 
-## 🔧 Configuration
+## ⚙️ Configuration
 
-### Customize RPM Ranges
+### 🔧 Customize RPM Ranges
 ```cpp
 // Edit in main.h
 #define RPM_MIN 700               // Start visualization
